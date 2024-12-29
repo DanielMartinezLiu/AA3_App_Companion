@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.enti.app_companion"
-    compileSdk = 34
+    compileSdk = 35  // Already set to 35
 
     defaultConfig {
         applicationId = "com.enti.app_companion"
-        minSdk = 27
-        targetSdk = 34
+        minSdk = 27  // You may want to consider updating this if needed
+        targetSdk = 35  // Updated to 35
         versionCode = 1
         versionName = "1.0"
 
