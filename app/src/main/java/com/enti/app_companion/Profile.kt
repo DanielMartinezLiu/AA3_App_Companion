@@ -2,18 +2,17 @@ package com.enti.app_companion
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.Button
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class MainActivity : AppCompatActivity() {
+class Profile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-
+        setContentView(R.layout.activity_profile)
         setupHeader();
     }
 
@@ -25,8 +24,8 @@ class MainActivity : AppCompatActivity() {
         val headerButton4: Button = findViewById(R.id.header_button_4)
         val headerButton5: Button = findViewById(R.id.header_button_5)
 
-        setupButton(headerButton1, Chat::class.java)
-        setupButton(headerButton2, News::class.java)
+        setupButton(headerButton1, News::class.java)
+        setupButton(headerButton2, Chat::class.java)
         setupButton(headerButton3, Profile::class.java)
         setupButton(headerButton4, Jokers::class.java)
         setupButton(headerButton5, Record::class.java)
