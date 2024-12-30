@@ -2,17 +2,17 @@ package com.enti.app_companion
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.Button
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class MainActivity : AppCompatActivity() {
+class Profile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_profile)
 
         setupHeader();
     }
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
                 findViewById<Button>(R.id.header_button_4) to Jokers::class.java,
                 findViewById<Button>(R.id.header_button_5) to Record::class.java
             ),
-            findViewById(R.id.header_button_1)
+            findViewById(R.id.header_button_3)
         )
     }
 }
