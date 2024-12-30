@@ -13,27 +13,22 @@ class News : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_news)
+
         setupHeader();
     }
 
     private fun setupHeader()
     {
-        val headerButton1: Button = findViewById(R.id.header_button_1)
-        val headerButton2: Button = findViewById(R.id.header_button_2)
-        val headerButton3: Button = findViewById(R.id.header_button_3)
-        val headerButton4: Button = findViewById(R.id.header_button_4)
-        val headerButton5: Button = findViewById(R.id.header_button_5)
-
-        setupButton(headerButton1, News::class.java)
-        setupButton(headerButton2, Chat::class.java)
-        setupButton(headerButton3, Profile::class.java)
-        setupButton(headerButton4, Jokers::class.java)
-        setupButton(headerButton5, Record::class.java)
-    }
-    private fun setupButton(button: Button, targetActivity: Class<*>) {
-        button.setOnClickListener {
-            val intent = Intent(this, targetActivity)
-            startActivity(intent)
-        }
+        HeaderUtils.setupHeader(
+            this,
+            mapOf(
+                findViewById<Button>(R.id.header_button_1) to News::class.java,
+                findViewById<Button>(R.id.header_button_2) to Chat::class.java,
+                findViewById<Button>(R.id.header_button_3) to Profile::class.java,
+                findViewById<Button>(R.id.header_button_4) to Jokers::class.java,
+                findViewById<Button>(R.id.header_button_5) to Record::class.java
+            ),
+            findViewById(R.id.header_button_1)
+        )
     }
 }
