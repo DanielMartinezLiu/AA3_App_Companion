@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="125dp"
         android:layout_margin="20dp"
-        android:background="@drawable/rounded_square"
+        android:background="@drawable/rounded_square_header"
         android:padding="10dp">
 
         <Button
