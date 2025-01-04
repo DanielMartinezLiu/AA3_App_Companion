@@ -144,7 +144,6 @@
             android:fontFamily="@font/balatro"
             android:textColor="@color/white"
             android:textSize="40dp"
-            android:shadowLayer="10dp 10dp 10dp @color/black"
 
             app:layout_constraintLeft_toRightOf="@+id/profile_image"
             app:layout_constraintTop_toTopOf="parent"
