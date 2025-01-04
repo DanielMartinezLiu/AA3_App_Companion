@@ -7,6 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import models.NewsAdapter
+import models.NewsModel
 
 class News : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +19,35 @@ class News : AppCompatActivity() {
         setContentView(R.layout.activity_news)
 
         setupHeader();
+        val newsLeft = listOf(
+            NewsModel("Among Us", R.drawable.jokers),
+            NewsModel("Binding of Isaac", R.drawable.jokers),
+            NewsModel("Among Us", R.drawable.jokers),
+            NewsModel("Binding of Isaac", R.drawable.jokers),
+            NewsModel("Among Us", R.drawable.jokers),
+            NewsModel("Binding of Isaac", R.drawable.jokers),
+            NewsModel("Among Us", R.drawable.jokers),
+            NewsModel("Binding of Isaac", R.drawable.jokers),
+            NewsModel("Among Us", R.drawable.jokers),
+            NewsModel("Binding of Isaac", R.drawable.jokers),
+        )
+        val newsRight = listOf(
+            NewsModel("Among Us", R.drawable.jokers),
+            NewsModel("Binding of Isaac", R.drawable.jokers),
+            NewsModel("Among Us", R.drawable.jokers),
+            NewsModel("Binding of Isaac", R.drawable.jokers),
+            NewsModel("Among Us", R.drawable.jokers),
+            NewsModel("Binding of Isaac", R.drawable.jokers),
+        )
+
+        val recyclerLeftView : RecyclerView = findViewById(R.id.news_left_recycler_view)
+        val recyclerRightView : RecyclerView = findViewById(R.id.news_right_recycler_view)
+
+        recyclerLeftView.layoutManager = LinearLayoutManager(this)
+        recyclerRightView.layoutManager = LinearLayoutManager(this)
+
+        recyclerLeftView.adapter = NewsAdapter(newsLeft)
+        recyclerRightView.adapter = NewsAdapter(newsRight)
     }
 
     private fun setupHeader()
