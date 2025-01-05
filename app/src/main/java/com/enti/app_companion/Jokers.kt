@@ -7,6 +7,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import models.JokersAdapter
+import models.JokersModel
+import models.NewsAdapter
+import models.NewsModel
 
 class Jokers : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +21,29 @@ class Jokers : AppCompatActivity() {
         setContentView(R.layout.activity_jokers)
 
         setupHeader()
+
+        val jokers = listOf(
+            JokersModel("Among Us", R.drawable.jokers),
+            JokersModel("Binding of Isaac", R.drawable.jokers),
+            JokersModel("Play In Physical", R.drawable.jokers),
+            JokersModel("Slay The Spire", R.drawable.jokers),
+            JokersModel("Among Us", R.drawable.jokers),
+            JokersModel("Binding of Isaac", R.drawable.jokers),
+            JokersModel("Play In Physical", R.drawable.jokers),
+            JokersModel("Slay The Spire", R.drawable.jokers),
+            JokersModel("Among Us", R.drawable.jokers),
+            JokersModel("Binding of Isaac", R.drawable.jokers),
+            JokersModel("Play In Physical", R.drawable.jokers),
+            JokersModel("Slay The Spire", R.drawable.jokers),
+            JokersModel("Among Us", R.drawable.jokers),
+            JokersModel("Binding of Isaac", R.drawable.jokers),
+            JokersModel("Play In Physical", R.drawable.jokers),
+            JokersModel("Slay The Spire", R.drawable.jokers),
+        )
+
+        val recyclerView : RecyclerView = findViewById(R.id.jokers_recycle_view)
+        recyclerView.layoutManager = GridLayoutManager(this, 3)
+        recyclerView.adapter = JokersAdapter(jokers)
     }
 
     private fun setupHeader()
