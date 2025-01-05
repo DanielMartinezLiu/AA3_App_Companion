@@ -7,6 +7,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import models.JokersAdapter
+import models.JokersModel
+import models.RecordAdapter
+import models.RecordModel
 
 class Record : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +22,23 @@ class Record : AppCompatActivity() {
         setContentView(R.layout.activity_record)
 
         setupHeader();
+
+        val records = listOf(
+            RecordModel(R.drawable.jokers, 1000, 10, 10),
+            RecordModel(R.drawable.jokers, 1000, 10, 10),
+            RecordModel(R.drawable.jokers, 1000, 10, 10),
+            RecordModel(R.drawable.jokers, 1000, 10, 10),
+            RecordModel(R.drawable.jokers, 1000, 10, 10),
+            RecordModel(R.drawable.jokers, 1000, 10, 10),
+            RecordModel(R.drawable.jokers, 1000, 10, 10),
+            RecordModel(R.drawable.jokers, 1000, 10, 10),
+            RecordModel(R.drawable.jokers, 1000, 10, 10),
+
+            )
+
+        val recyclerView : RecyclerView = findViewById(R.id.record_recycle_view)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = RecordAdapter(records)
     }
 
     private fun setupHeader()

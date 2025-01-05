@@ -1,18 +1,13 @@
 package com.enti.app_companion
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import models.JokersAdapter
 import models.JokersModel
-import models.NewsAdapter
-import models.NewsModel
 
 class Jokers : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
