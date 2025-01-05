@@ -24,15 +24,15 @@ class Record : AppCompatActivity() {
         setupHeader();
 
         val records = listOf(
-            RecordModel(R.drawable.jokers, 1000, 10, 10),
-            RecordModel(R.drawable.jokers, 1000, 10, 10),
-            RecordModel(R.drawable.jokers, 1000, 10, 10),
-            RecordModel(R.drawable.jokers, 1000, 10, 10),
-            RecordModel(R.drawable.jokers, 1000, 10, 10),
-            RecordModel(R.drawable.jokers, 1000, 10, 10),
-            RecordModel(R.drawable.jokers, 1000, 10, 10),
-            RecordModel(R.drawable.jokers, 1000, 10, 10),
-            RecordModel(R.drawable.jokers, 1000, 10, 10)
+            RecordModel(R.drawable.black_deck, 1000, 10, 10),
+            RecordModel(R.drawable.zodiac_deck, 1000, 10, 10),
+            RecordModel(R.drawable.erratic_deck, 1000, 10, 10),
+            RecordModel(R.drawable.plasma_deck, 1000, 10, 10),
+            RecordModel(R.drawable.nebula_deck, 1000, 10, 10),
+            RecordModel(R.drawable.painted_deck, 1000, 10, 10),
+            RecordModel(R.drawable.challenge_deck, 1000, 10, 10),
+            RecordModel(R.drawable.anaglyph_deck, 1000, 10, 10),
+            RecordModel(R.drawable.ghost_deck, 1000, 10, 10)
             )
 
         val recyclerView : RecyclerView = findViewById(R.id.record_recycle_view)

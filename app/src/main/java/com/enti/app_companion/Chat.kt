@@ -23,14 +23,14 @@ class Chat : AppCompatActivity() {
         setupHeader();
 
         val chats = listOf(
-            ChatModel(R.drawable.jokers, "Test", "New Text"),
-            ChatModel(R.drawable.jokers, "Test", "New Text"),
-            ChatModel(R.drawable.jokers, "Test", "New Text"),
-            ChatModel(R.drawable.jokers, "Test", "New Text"),
-            ChatModel(R.drawable.jokers, "Test", "New Text"),
-            ChatModel(R.drawable.jokers, "Test", "New Text"),
-            ChatModel(R.drawable.jokers, "Test", "New Text"),
-            ChatModel(R.drawable.jokers, "Test", "New Text"),
+            ChatModel(R.drawable.abandoned_deck, "Abandoned Deck", "New Text"),
+            ChatModel(R.drawable.black_deck, "Black Deck", "New Text"),
+            ChatModel(R.drawable.erratic_deck, "Erratic Deck", "New Text"),
+            ChatModel(R.drawable.challenge_deck, "Challenge Deck", "New Text"),
+            ChatModel(R.drawable.green_deck, "Green Deck", "New Text"),
+            ChatModel(R.drawable.red_deck, "Red Deck", "New Text"),
+            ChatModel(R.drawable.magic_deck, "Magic Deck", "New Text"),
+            ChatModel(R.drawable.zodiac_deck, "Zodiac Deck", "New Text"),
         )
 
         val recyclerView : RecyclerView = findViewById(R.id.chat_recycle_view)
