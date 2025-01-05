@@ -37,9 +37,9 @@ class Chat : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         recyclerView.adapter = ChatAdapter(chats) { chat ->
-            val intent : Intent = Intent(this, News::class.java)
+            val intent : Intent = Intent(this, UserChat::class.java)
+            intent.putExtra("chat_image", chat.imageResId)
             intent.putExtra("chat_username", chat.username)
-            intent.putExtra("chat_new_text", chat.newText)
             startActivity(intent)
         }
     }
