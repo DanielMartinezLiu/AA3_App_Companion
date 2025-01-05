@@ -9,18 +9,17 @@
     >
 
     <ImageView
-        android:id="@+id/news_image"
+        android:id="@+id/jokers_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/jokers"/>
     <TextView
-        android:id="@+id/news_title"
+        android:id="@+id/jokers_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Among Us"
         android:gravity="center"
         android:padding="10dp"
         android:fontFamily="@font/balatro"
         android:textColor="@color/white"
-        android:textSize="35dp" />
+        android:textSize="35sp" />
 </LinearLayout>

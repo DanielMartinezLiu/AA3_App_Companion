@@ -10,30 +10,32 @@ import com.enti.app_companion.R
 
 class JokersAdapter(private val _jokers: List<JokersModel>) : RecyclerView.Adapter<JokersAdapter.JokersViewHolder>()
 {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JokersAdapter.JokersViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_layout_new_manager, parent, false);
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JokersAdapter.JokersViewHolder
+    {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_layout_jokers_manager, parent, false);
         return JokersViewHolder(view);
     }
 
-    override fun onBindViewHolder(holder: JokersAdapter.JokersViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: JokersAdapter.JokersViewHolder, position: Int)
+    {
         val jokers = _jokers[position];
         holder.bind(jokers);
     }
 
-    override fun getItemCount(): Int {
+    override fun getItemCount(): Int
+    {
         return _jokers.size;
     }
 
     class JokersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
-        private val newsTitle : TextView = itemView.findViewById(R.id.news_title);
-        private val newsImage : ImageView = itemView.findViewById(R.id.news_image);
+        private val jokersTitle : TextView = itemView.findViewById(R.id.jokers_title);
+        private val jokersImage : ImageView = itemView.findViewById(R.id.jokers_image);
 
         fun bind(jokersModel: JokersModel)
         {
-            newsTitle.text = jokersModel.title;
-            newsImage.setImageResource(jokersModel.imageResId);
+            jokersTitle.text = jokersModel.title;
+            jokersImage.setImageResource(jokersModel.imageResId);
         }
     }
 }

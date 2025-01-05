@@ -27,6 +27,18 @@ class Jokers : AppCompatActivity() {
             JokersModel("Binding of Isaac", R.drawable.jokers),
             JokersModel("Play In Physical", R.drawable.jokers),
             JokersModel("Slay The Spire", R.drawable.jokers),
+            JokersModel("Among Us", R.drawable.jokers),
+            JokersModel("Binding of Isaac", R.drawable.jokers),
+            JokersModel("Play In Physical", R.drawable.jokers),
+            JokersModel("Slay The Spire", R.drawable.jokers),
+            JokersModel("Among Us", R.drawable.jokers),
+            JokersModel("Binding of Isaac", R.drawable.jokers),
+            JokersModel("Play In Physical", R.drawable.jokers),
+            JokersModel("Slay The Spire", R.drawable.jokers),
+            JokersModel("Among Us", R.drawable.jokers),
+            JokersModel("Binding of Isaac", R.drawable.jokers),
+            JokersModel("Play In Physical", R.drawable.jokers),
+            JokersModel("Slay The Spire", R.drawable.jokers),
         )
 
         val recyclerView : RecyclerView = findViewById(R.id.jokers_recycle_view)
