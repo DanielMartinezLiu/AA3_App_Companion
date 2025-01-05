@@ -24,8 +24,16 @@ class News : AppCompatActivity() {
             NewsModel("Binding of Isaac", R.drawable.jokers),
             NewsModel("Play In Physical", R.drawable.jokers),
             NewsModel("Slay The Spire", R.drawable.jokers),
+            NewsModel("Among Us", R.drawable.jokers),
+            NewsModel("Binding of Isaac", R.drawable.jokers),
+            NewsModel("Play In Physical", R.drawable.jokers),
+            NewsModel("Slay The Spire", R.drawable.jokers),
         )
         val newsRight = listOf(
+            NewsModel("Play On Mobile", R.drawable.jokers),
+            NewsModel("New Patch", R.drawable.jokers),
+            NewsModel("The Witcher 3", R.drawable.jokers),
+            NewsModel("Cyberpunk 2077", R.drawable.jokers),
             NewsModel("Play On Mobile", R.drawable.jokers),
             NewsModel("New Patch", R.drawable.jokers),
             NewsModel("The Witcher 3", R.drawable.jokers),
