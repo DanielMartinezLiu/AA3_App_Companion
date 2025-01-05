@@ -6,6 +6,6 @@ import retrofit2.http.Query
 
 interface HelldiversIIApiService {
 
-    @Get("v1/public/characters")
-    fun get
+    @GET("/v1/planets")
+    fun getPlanets( @Query("limit") limit: Int = 20 ): Call<HelldiversIIResponse>
 }
