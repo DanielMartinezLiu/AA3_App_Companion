@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginBottom="20dp"
+    android:padding="10dp"
+    android:background="@drawable/rounded_box_value">
+
+    <ImageView
+        android:id="@+id/chat_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/jokers"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <FrameLayout
+        android:id="@id/highest_hand"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/rounded_box_background"
+        app:layout_constraintLeft_toRightOf="@+id/chat_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center"
+                android:padding="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginVertical="5dp"
+                android:gravity="center"
+                android:background="@drawable/rounded_box_value"
+
+                android:fontFamily="@font/balatro"
+                android:text="Player Chat"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <TextView
+                android:id="@+id/new_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center"
+                android:padding="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginVertical="10dp"
+                android:gravity="center"
+
+                android:fontFamily="@font/balatro"
+                android:text="Lorem Ipsum dolor sit"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/username"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

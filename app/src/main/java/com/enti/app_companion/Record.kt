@@ -32,8 +32,7 @@ class Record : AppCompatActivity() {
             RecordModel(R.drawable.jokers, 1000, 10, 10),
             RecordModel(R.drawable.jokers, 1000, 10, 10),
             RecordModel(R.drawable.jokers, 1000, 10, 10),
-            RecordModel(R.drawable.jokers, 1000, 10, 10),
-
+            RecordModel(R.drawable.jokers, 1000, 10, 10)
             )
 
         val recyclerView : RecyclerView = findViewById(R.id.record_recycle_view)
