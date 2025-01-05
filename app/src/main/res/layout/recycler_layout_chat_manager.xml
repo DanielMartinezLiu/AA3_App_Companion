@@ -5,8 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_marginBottom="20dp"
-    android:padding="10dp"
-    android:background="@drawable/rounded_box_value">
+    android:background="@drawable/rounded_square_header"
+    android:clickable="true"
+    android:focusable="true">
 
     <ImageView
         android:id="@+id/chat_image"
@@ -39,7 +40,7 @@
                 android:layout_gravity="end|center"
                 android:padding="5dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginVertical="5dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:background="@drawable/rounded_box_value"
 
@@ -57,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center"
                 android:padding="5dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginVertical="10dp"
                 android:gravity="center"
 

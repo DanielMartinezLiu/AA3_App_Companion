@@ -35,7 +35,13 @@ class Chat : AppCompatActivity() {
 
         val recyclerView : RecyclerView = findViewById(R.id.chat_recycle_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = ChatAdapter(chats)
+
+        recyclerView.adapter = ChatAdapter(chats) { chat ->
+            val intent : Intent = Intent(this, News::class.java)
+            intent.putExtra("chat_username", chat.username)
+            intent.putExtra("chat_new_text", chat.newText)
+            startActivity(intent)
+        }
     }
 
     private fun setupHeader()
