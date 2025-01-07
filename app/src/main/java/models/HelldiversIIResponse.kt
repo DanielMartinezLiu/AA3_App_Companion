@@ -1,16 +1,14 @@
 package models
 
 data class HelldiversIIResponse(
-    val data: List<PlanetInfo>
+    val data: Map<String, PlanetInfo>
 )
 
 data class PlanetInfo(
-    val index: Int,
     val name: String,
     val sector: String,
-    val biome: Biome,
+    val biome: Biome?,
     val environmentals: List<Environmental>,
-    val initialOwner: Int
 )
 
 data class Biome(

@@ -59,17 +59,19 @@ class News : AppCompatActivity() {
     {
         HelldiversIIApiInstance.apiService.getPlanets().enqueue(object : Callback<HelldiversIIResponse> {
             override fun onResponse(call: Call<HelldiversIIResponse>, response: Response<HelldiversIIResponse>) {
+                Log.d("ApiResponse", "Raw Response: ${response.raw()}")
+
                 if (response.isSuccessful) {
-                    val planets = response.body()?.data
+                    val planets = response.body()?.data?.values
 
                     if (!planets.isNullOrEmpty()) {
                         planets.forEach { planet ->
-                            Log.d("Planet", "Name: ${planet.index}, Description: ${planet.name}")
+                            Log.d("Planet", "Name: ${planet.name}, Sector: ${planet.sector}")
                         }
                     } else {
                         Log.e("ApiError", "No planets found in the response.")
                     }
-                }else {
+                } else {
                     Log.e("ApiError", "Response not successful: ${response.code()} - ${response.message()}")
                 }
             }
