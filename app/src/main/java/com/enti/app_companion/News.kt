@@ -1,16 +1,19 @@
 package com.enti.app_companion
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import HelldiversIIApi.HelldiversIIApiInstance
+import models.HelldiversIIResponse
 import models.NewsAdapter
 import models.NewsModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class News : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +51,32 @@ class News : AppCompatActivity() {
 
         recyclerLeftView.adapter = NewsAdapter(newsLeft)
         recyclerRightView.adapter = NewsAdapter(newsRight)
+
+        callApi()
+    }
+
+    private fun callApi()
+    {
+        HelldiversIIApiInstance.apiService.getPlanets().enqueue(object : Callback<HelldiversIIResponse> {
+            override fun onResponse(call: Call<HelldiversIIResponse>, response: Response<HelldiversIIResponse>) {
+                if (response.isSuccessful) {
+                    val planets = response.body()?.data
+
+                    if (!planets.isNullOrEmpty()) {
+                        planets.forEach { planet ->
+                            Log.d("Planet", "Name: ${planet.index}, Description: ${planet.name}")
+                        }
+                    } else {
+                        Log.e("ApiError", "No planets found in the response.")
+                    }
+                }else {
+                    Log.e("ApiError", "Response not successful: ${response.code()} - ${response.message()}")
+                }
+            }
+            override fun onFailure(call: Call<HelldiversIIResponse>, t: Throwable) {
+                Log.e("ApiError", t.message ?: "Unknown error")
+            }
+        })
     }
 
     private fun setupHeader()

@@ -1,11 +1,7 @@
-package HelldiversIIApi
+package models
 
 data class HelldiversIIResponse(
-    val data: HelldiversIIData
-)
-
-data class HelldiversIIData(
-    val results: List<PlanetInfo>
+    val data: List<PlanetInfo>
 )
 
 data class PlanetInfo(
