@@ -7,6 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import models.MarvelAdapter
 import models.MarvelCharacter
 import models.MarvelResponse
 import retrofit2.Call
@@ -19,19 +22,17 @@ class Api : AppCompatActivity() {
 
     private val publicKey = "4a47441d0ad2b1d769d917af032b6810"
     private val privateKey = "ef96aac3a810b9b9f4890c417b8e23301a1c893f"
-    private val charactersList = mutableListOf<MarvelCharacter>()
+
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_api)
 
+        recyclerView = findViewById(R.id.api_recycle_view)
+        recyclerView.layoutManager = LinearLayoutManager(this)
         callApi()
-
-    }
-
-    private fun createLayout() {
-
     }
 
     private fun callApi() {
@@ -43,11 +44,7 @@ class Api : AppCompatActivity() {
             override fun onResponse(call: Call<MarvelResponse>, response: Response<MarvelResponse>) {
                 if(response.isSuccessful) {
                     val characters = response.body()?.data?.results
-                    characters?.forEach { character ->
-                        charactersList.add(character)
-                    }
-                    createLayout()
-
+                    recyclerView.adapter = characters?.let { MarvelAdapter(it) }
                 }else {
                     Log.e("ApiError", "Response not successful: ${response.code()} - ${response.message()}")
                 }
