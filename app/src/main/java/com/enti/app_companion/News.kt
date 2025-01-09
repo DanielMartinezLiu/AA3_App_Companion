@@ -7,21 +7,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import MarvelApi.MarvelApiInstance
-import models.MarvelResponse
 import models.NewsAdapter
 import models.NewsModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.math.BigInteger
-import java.security.MessageDigest
+
 
 class News : AppCompatActivity() {
-    private val publicKey = "4a47441d0ad2b1d769d917af032b6810"
-    private val privateKey = "ef96aac3a810b9b9f4890c417b8e23301a1c893f"
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -58,30 +48,6 @@ class News : AppCompatActivity() {
         recyclerLeftView.adapter = NewsAdapter(newsLeft)
         recyclerRightView.adapter = NewsAdapter(newsRight)
 
-        val timestamp = System.currentTimeMillis().toString()
-        val hash = md5("$timestamp$privateKey$publicKey")
-        val call = MarvelApiInstance.apiService.getCharacters(publicKey, timestamp, hash)
-
-        call.enqueue(object : Callback<MarvelResponse> {
-            override fun onResponse(call: Call<MarvelResponse>, response: Response<MarvelResponse>) {
-                if(response.isSuccessful) {
-                    val characters = response.body()?.data?.results
-                    characters?.forEach { character ->
-                        Log.d("Character", "Name: ${character.name}, Description: ${character.description}")
-                    }
-                }else {
-                    Log.e("ApiError", "Response not successful: ${response.code()} - ${response.message()}")
-                }
-            }
-            override fun onFailure(call: Call<MarvelResponse>, t: Throwable) {
-                Log.e("ApiError", t.message ?: "Unknown Error")
-            }
-        })
-    }
-
-    private fun md5(input: String): String {
-        val md = MessageDigest.getInstance("MD5")
-        return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
     }
 
     private fun setupHeader()

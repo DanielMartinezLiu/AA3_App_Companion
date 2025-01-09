@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class Profile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,7 +12,13 @@ class Profile : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_profile)
 
-        setupHeader();
+        val apiButton = findViewById<Button>(R.id.api_button)
+        apiButton.setOnClickListener{
+            val intent = Intent(this, Api::class.java)
+            startActivity(intent)
+        }
+
+        setupHeader()
     }
 
     private fun setupHeader()
@@ -31,4 +35,6 @@ class Profile : AppCompatActivity() {
             findViewById(R.id.header_button_3)
         )
     }
+
+
 }
