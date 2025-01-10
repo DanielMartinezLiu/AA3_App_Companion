@@ -1,16 +1,15 @@
 package com.enti.app_companion
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import models.NewsAdapter
 import models.NewsModel
+
 
 class News : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +47,7 @@ class News : AppCompatActivity() {
 
         recyclerLeftView.adapter = NewsAdapter(newsLeft)
         recyclerRightView.adapter = NewsAdapter(newsRight)
+
     }
 
     private fun setupHeader()
