@@ -8,9 +8,15 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.Task
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 
 class Login : AppCompatActivity() {
 
@@ -19,70 +25,102 @@ class Login : AppCompatActivity() {
     private lateinit var passwordText: EditText
     private lateinit var loginButton: Button
     private lateinit var registerButton: Button
+    private lateinit var googleSignInButton: com.google.android.gms.common.SignInButton
 
     private lateinit var auth: FirebaseAuth
     private lateinit var analytics: FirebaseAnalytics
-    private lateinit var bundle: Bundle
+
+    private val RC_SIGN_IN = 9001 // Request code for Google Sign-In
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        auth = FirebaseAuth.getInstance()
+        analytics = FirebaseAnalytics.getInstance(this)
+
         playerPrefs = getSharedPreferences("login_prefs", Context.MODE_PRIVATE)
-        auth = FirebaseAuth.getInstance() // Inicializar FirebaseAuth
 
         val currentMail = playerPrefs.getString("mail", "")
-        Log.d("Login", "El mail guardado es $currentMail")
-        if (auth.currentUser != null) {
-            Log.d("Login", "Ya está logueado")
-            navigateToNews()
-            return
+        if (currentMail != "") {
+            auth.signOut()
+            //navigateToNews()
+            //return
         }
 
         mailText = findViewById(R.id.mail_field)
         passwordText = findViewById(R.id.password_field)
-
-        analytics = FirebaseAnalytics.getInstance(this)
-
-        bundle = Bundle().apply {
-            putString(
-                "portrait_orientation",
-                (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE).toString()
-            )
-        }
-
-        analytics.logEvent("OpenAppSettings", bundle)
-
         loginButton = findViewById(R.id.login_button)
-        loginButton.setOnClickListener {
-            val mail = mailText.text.toString()
-            val password = passwordText.text.toString()
+        registerButton = findViewById(R.id.register_button)
+        googleSignInButton = findViewById(R.id.google_sign_in_button)
 
-            // Llama al método de inicio de sesión con correo y contraseña
-            loginWithEmail(mail, password)
+        loginButton.setOnClickListener {
+            loginWithEmail(mailText.text.toString(), passwordText.text.toString())
         }
 
-        registerButton = findViewById(R.id.register_button)
         registerButton.setOnClickListener {
             val intent = Intent(this, Register::class.java)
             startActivity(intent)
         }
+
+        googleSignInButton.setOnClickListener {
+            signInWithGoogle()
+        }
     }
 
     private fun loginWithEmail(email: String, password: String) {
-        if (email.isEmpty() || password.isEmpty()) {
-            Log.d("Login", "Email o contraseña vacíos")
-            return
-        }
-
         auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("Login", "Inicio de sesión exitoso")
-                    playerPrefs.edit().putString("mail", email).apply() // Guardar el correo en SharedPreferences
+                    playerPrefs.edit().putString("mail", email).apply()
                     navigateToNews()
                 } else {
-                    Log.w("Login", "Error al iniciar sesión", task.exception)
+                    Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    private fun signInWithGoogle() {
+        // Configure Google Sign-In options
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id)) // Obtained from Firebase Console
+            .requestEmail()
+            .build()
+
+        val googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        // Start the Google Sign-In intent
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_SIGN_IN) {
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(Exception::class.java)
+                if (account != null) {
+                    firebaseAuthWithGoogle(account.idToken!!)
+                }
+            } catch (e: Exception) {
+                Log.w("Login", "Google sign-in failed", e)
+                Toast.makeText(this, "Google sign-in failed", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    playerPrefs.edit().putString("mail", user?.email).apply()
+                    navigateToNews()
+                } else {
+                    Toast.makeText(this, "Authentication Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
     }
@@ -90,6 +128,6 @@ class Login : AppCompatActivity() {
     private fun navigateToNews() {
         val intent = Intent(this, News::class.java)
         startActivity(intent)
-        finish() // Opcional: cierra la pantalla de inicio de sesión para evitar que el usuario regrese
+        finish()
     }
 }
