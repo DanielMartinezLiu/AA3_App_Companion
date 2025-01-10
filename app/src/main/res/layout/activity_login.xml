@@ -27,7 +27,8 @@
             android:id="@+id/mail_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="mail"
+            android:hint="Mail"
+            android:textColorHint="@color/white"
             android:textColor="@color/white"
             android:background="@drawable/rounded_box_value"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,25 +36,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             />
         <EditText
-            android:id="@+id/username_field"
+            android:id="@+id/password_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="username"
+            android:hint="Password"
+            android:textColorHint="@color/white"
             android:textColor="@color/white"
             android:background="@drawable/rounded_box_value"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mail_field"
-            android:layout_marginTop="25dp"
-            />
-        <EditText
-            android:id="@+id/password_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Password"
-            android:textColor="@color/white"
-            android:background="@drawable/rounded_box_value"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/username_field"
             android:layout_marginTop="25dp"
             />
 
