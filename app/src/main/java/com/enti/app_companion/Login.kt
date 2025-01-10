@@ -5,71 +5,61 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.Query
-import java.sql.Struct
-
-private lateinit var analytics: FirebaseAnalytics
 
 class Login : AppCompatActivity() {
 
-    private lateinit var database: DatabaseReference
     private lateinit var playerPrefs: SharedPreferences
-    private lateinit var mailText : EditText
-    private lateinit var passwordText : EditText
+    private lateinit var mailText: EditText
+    private lateinit var passwordText: EditText
     private lateinit var loginButton: Button
     private lateinit var registerButton: Button
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var googleSignInClient: GoogleSignInClient
-
-    private  lateinit var bundle: Bundle
-    private val databaseUrl = "https://appcompanion-5f7f6-default-rtdb.europe-west1.firebasedatabase.app"
+    private lateinit var analytics: FirebaseAnalytics
+    private lateinit var bundle: Bundle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         playerPrefs = getSharedPreferences("login_prefs", Context.MODE_PRIVATE)
+        auth = FirebaseAuth.getInstance() // Inicializar FirebaseAuth
 
         val currentMail = playerPrefs.getString("mail", "")
-        Log.d("Login", "El mail guardado es ${currentMail}")
-        if(currentMail != "")
-        {
-            Log.d("Login", "Ya esta logueado")
-            val intent = Intent(this, News::class.java)
-            startActivity(intent)
+        Log.d("Login", "El mail guardado es $currentMail")
+        if (auth.currentUser != null) {
+            Log.d("Login", "Ya está logueado")
+            navigateToNews()
             return
         }
 
-        mailText  = findViewById(R.id.mail_field)
+        mailText = findViewById(R.id.mail_field)
         passwordText = findViewById(R.id.password_field)
 
         analytics = FirebaseAnalytics.getInstance(this)
 
         bundle = Bundle().apply {
-            putString("portrait_orentation", (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE).toString())
+            putString(
+                "portrait_orientation",
+                (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE).toString()
+            )
         }
 
         analytics.logEvent("OpenAppSettings", bundle)
 
-        database = FirebaseDatabase.getInstance(databaseUrl).getReference("users")
-
         loginButton = findViewById(R.id.login_button)
-        loginButton.setOnClickListener{
-            //LOGIN
-            login(mailText.text.toString(), passwordText.text.toString())
+        loginButton.setOnClickListener {
+            val mail = mailText.text.toString()
+            val password = passwordText.text.toString()
+
+            // Llama al método de inicio de sesión con correo y contraseña
+            loginWithEmail(mail, password)
         }
 
         registerButton = findViewById(R.id.register_button)
@@ -79,39 +69,27 @@ class Login : AppCompatActivity() {
         }
     }
 
-    private  fun login(mailContent : String, passwordContent: String){
-        //Comprobar si los datos son correctos
-        val query: Query = database.orderByChild("mail").equalTo(mailContent)
+    private fun loginWithEmail(email: String, password: String) {
+        if (email.isEmpty() || password.isEmpty()) {
+            Log.d("Login", "Email o contraseña vacíos")
+            return
+        }
 
-        query.get()
-            .addOnSuccessListener { snapshot ->
-                Log.d("Login", "Query enviada")
-                if (snapshot.exists()) {
-                    var userFound = false
-                    for (child in snapshot.children) {
-                        val dbPassword = child.child("password").value.toString() // Cambia "password" al nombre exacto del campo en tu base de datos
-                        if (dbPassword == passwordContent) {
-                            userFound = true
-                            break
-                        }
-                    }
-                    if (userFound) {
-                        Log.d("Login", "Usuario y contraseña correctos")
-                        playerPrefs.edit().putString("mail", mailContent).commit()
-                        val intent = Intent(this, News::class.java)
-                        startActivity(intent)
-                    } else {
-                        Log.d("Login", "Contraseña incorrecta")
-                    }
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Log.d("Login", "Inicio de sesión exitoso")
+                    playerPrefs.edit().putString("mail", email).apply() // Guardar el correo en SharedPreferences
+                    navigateToNews()
                 } else {
-                    Log.d("Login", "Correo no encontrado")
+                    Log.w("Login", "Error al iniciar sesión", task.exception)
                 }
-
-            }
-            .addOnFailureListener { exception ->
-                Log.e("Login", "Error al consultar la base de datos", exception)
             }
     }
 
-
+    private fun navigateToNews() {
+        val intent = Intent(this, News::class.java)
+        startActivity(intent)
+        finish() // Opcional: cierra la pantalla de inicio de sesión para evitar que el usuario regrese
+    }
 }

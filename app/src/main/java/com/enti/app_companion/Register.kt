@@ -7,27 +7,27 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.Query
 
 class Register : AppCompatActivity() {
 
     private lateinit var database: DatabaseReference
+    private lateinit var auth: FirebaseAuth // FirebaseAuth para manejo de usuarios
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        val mailText : EditText = findViewById(R.id.mail_field)
-        val userText : EditText = findViewById(R.id.username_field)
-        val passwordText : EditText = findViewById(R.id.password_field)
-        val repeatedPasswordText : EditText = findViewById(R.id.repeat_password_field)
+        val mailText: EditText = findViewById(R.id.mail_field)
+        val userText: EditText = findViewById(R.id.username_field)
+        val passwordText: EditText = findViewById(R.id.password_field)
+        val repeatedPasswordText: EditText = findViewById(R.id.repeat_password_field)
 
         val databaseUrl = "https://appcompanion-5f7f6-default-rtdb.europe-west1.firebasedatabase.app"
         database = FirebaseDatabase.getInstance(databaseUrl).getReference("users")
-        val dataId = database.push().key
+        auth = FirebaseAuth.getInstance() // Inicializar FirebaseAuth
 
         val loginButton: Button = findViewById(R.id.login_button)
         loginButton.setOnClickListener {
@@ -42,63 +42,58 @@ class Register : AppCompatActivity() {
             val passwordContent = passwordText.text.toString()
             val repeatedPasswordContent = repeatedPasswordText.text.toString()
 
-            //Si las contraseñas coinciden mostrar error
-            if(passwordContent != repeatedPasswordContent){
-                //Mostrar texto no funca
-                Log.d("Register", "La contraseña no es correcta");
-                Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT)
+            // Validar que las contraseñas coincidan
+            if (passwordContent != repeatedPasswordContent) {
+                Log.d("Register", "Las contraseñas no coinciden")
+                Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            Log.d("Register", "La contraseña es correcta");
+            // Validar que el correo y la contraseña no estén vacíos
+            if (mailContent.isEmpty() || passwordContent.isEmpty()) {
+                Toast.makeText(this, "El correo y la contraseña no pueden estar vacíos", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-            //Si el mail ya existe mostrar error
-            val query: Query = database.orderByChild("mail").equalTo(mailContent)
-
-            query.get()
-                .addOnSuccessListener { snapshot ->
-                    Log.d("Register", "Query enviada")
-                    if(!snapshot.exists()){
-                        Log.d("Register", "El mail no esta en uso");
-                        sendData(dataId, mailContent, userContent, passwordContent)
-                    }
-                    else{
-                        Toast.makeText(this, "El mail esta en uso", Toast.LENGTH_SHORT)
-                        Log.d("Register", "El mail esta en uso");
-                    }
-
-
-                }
-                .addOnFailureListener { exception ->
-                    Log.e("Register", "Error al consultar la base de datos", exception)
-                }
-
-
-
+            // Registrar usuario en Firebase Authentication
+            registerWithEmail(mailContent, passwordContent, userContent)
         }
     }
 
-    private fun sendData(dataId : String?, mailContent : String, userContent : String, passwordContent : String){
-        //Enviar los datos de la base de datos
-        val messageData = mapOf(
-            "mail" to mailContent,
-            "user" to userContent,
-            "password" to passwordContent
-        )
+    private fun registerWithEmail(email: String, password: String, username: String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Log.d("Register", "Usuario registrado con éxito")
 
-        if(dataId != null)
-        {
-            database.child(dataId).setValue(messageData)
-                .addOnSuccessListener { result ->
-                    Log.d("Register", "Registro correcto")
+                    // Guardar información adicional en la base de datos
+                    saveUserToDatabase(email, username)
+
+                    // Redirigir a la pantalla de inicio de sesión
                     val intent = Intent(this, Login::class.java)
                     startActivity(intent)
+                } else {
+                    Log.e("Register", "Error al registrar el usuario", task.exception)
+                    Toast.makeText(this, "Error al registrar: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
-                .addOnFailureListener{ exception ->
-                    Log.d("Register", "Error: ${exception.message}")
+            }
+    }
+
+    private fun saveUserToDatabase(email: String, username: String) {
+        val userId = auth.currentUser?.uid // Obtener el UID del usuario actual
+        if (userId != null) {
+            val userData = mapOf(
+                "email" to email,
+                "username" to username
+            )
+
+            database.child("users").child(userId).setValue(userData)
+                .addOnSuccessListener {
+                    Log.d("Register", "Información del usuario guardada en la base de datos")
+                }
+                .addOnFailureListener { exception ->
+                    Log.e("Register", "Error al guardar información del usuario", exception)
                 }
         }
     }
-
-
 }
