@@ -1,17 +1,14 @@
 package com.enti.app_companion
 
-import MarvelApi.MarvelApiInstance
+import ChampionsApi.ChampionsApiInstance
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import models.MarvelAdapter
-import models.MarvelCharacter
-import models.MarvelResponse
+import models.CharacterAdapter
+import models.CharacterResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,8 +17,7 @@ import java.security.MessageDigest
 
 class Api : AppCompatActivity() {
 
-    private val publicKey = "4a47441d0ad2b1d769d917af032b6810"
-    private val privateKey = "ef96aac3a810b9b9f4890c417b8e23301a1c893f"
+    private val publicKey = "RGAPI-2b5f40e6-c608-4e23-8edf-0a6142faadb0"
 
     private lateinit var recyclerView: RecyclerView
 
@@ -36,29 +32,31 @@ class Api : AppCompatActivity() {
     }
 
     private fun callApi() {
-        val timestamp = System.currentTimeMillis().toString()
-        val hash = md5("$timestamp$privateKey$publicKey")
-        val call = MarvelApiInstance.apiService.getCharacters(publicKey, timestamp, hash)
+        val call = ChampionsApiInstance.apiService.getCharacters(publicKey)
 
-        call.enqueue(object : Callback<MarvelResponse> {
-            override fun onResponse(call: Call<MarvelResponse>, response: Response<MarvelResponse>) {
+        call.enqueue(object : Callback<CharacterResponse> {
+            override fun onResponse(call: Call<CharacterResponse>, response: Response<CharacterResponse>) {
                 if(response.isSuccessful) {
-                    val characters = response.body()?.data?.results
-                    recyclerView.adapter = characters?.let { MarvelAdapter(it) }
+                    val characters = response.body()?.data?.results?.values?.toList()
+
+                    if (characters != null) {
+                        Log.d("ApiResponse", "Characters received: ${characters.size}")
+                        for (character in characters) {
+                            Log.d("ApiResponse", "Character - ID: ${character.id}, Name: ${character.name}, Tier: ${character.title}")
+                        }
+                    }
+                    else {
+                        Log.d("ApiResponse", "Response body: ${response.body()?.toString()}")
+                        Log.e("ApiError", "Response not successful: ${response.code()} - ${response.message()}")
+                    }
+                    recyclerView.adapter = CharacterAdapter(characters ?: emptyList())
                 }else {
                     Log.e("ApiError", "Response not successful: ${response.code()} - ${response.message()}")
                 }
             }
-            override fun onFailure(call: Call<MarvelResponse>, t: Throwable) {
+            override fun onFailure(call: Call<CharacterResponse>, t: Throwable) {
                 Log.e("ApiError", t.message ?: "Unknown Error")
             }
         })
-
-
-    }
-
-    private fun md5(input: String): String {
-        val md = MessageDigest.getInstance("MD5")
-        return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
     }
 }

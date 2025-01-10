@@ -15,37 +15,35 @@ import com.enti.app_companion.R
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
-import kotlin.concurrent.thread
-import kotlin.math.log
 
-class MarvelAdapter(private val _marvel: List<MarvelCharacter>) : RecyclerView.Adapter<MarvelAdapter.MarvelViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarvelAdapter.MarvelViewHolder {
+class CharacterAdapter(private val _characters: List<LolChampion>) : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterAdapter.CharacterViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_layout_api, parent, false);
 
-        return MarvelViewHolder(view);
+        return CharacterViewHolder(view);
     }
 
-    override fun onBindViewHolder(holder: MarvelAdapter.MarvelViewHolder, position: Int) {
-        val marvel = _marvel[position]
+    override fun onBindViewHolder(holder: CharacterAdapter.CharacterViewHolder, position: Int) {
+        val marvel = _characters[position]
         holder.bind(marvel)
     }
 
     override fun getItemCount(): Int {
-        return _marvel.size;
+        return _characters.size;
     }
 
-    class MarvelViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class CharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
         private val characterName : TextView = itemView.findViewById(R.id.api_character_name)
-        private val characterImage : ImageView = itemView.findViewById(R.id.api_character_image)
+        //private val characterImage : ImageView = itemView.findViewById(R.id.api_character_image)
 
-        fun bind(marvelCharacter: MarvelCharacter)
+        fun bind(lolChampion: LolChampion)
         {
-            characterName.text = marvelCharacter.name
+            characterName.text = lolChampion.name
 
-            val urlSum = marvelCharacter.thumbnail.path.replace("http://", "https://") + '.' + marvelCharacter.thumbnail.extension + "?4a47441d0ad2b1d769d917af032b6810"
-            Log.e("CACA", urlSum)
-            loadImage(urlSum, characterImage)
+            val urlSum = "https://ddragon.leagueoflegends.com/cdn/15.1.1/img/champion/" + lolChampion.image.full
+            Log.e("DEBUG", urlSum)
+            //loadImage(urlSum, characterImage)
         }
 
         private fun loadImage(url: String, imageView: ImageView){
