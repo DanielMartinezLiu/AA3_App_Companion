@@ -87,7 +87,7 @@ class Register : AppCompatActivity() {
                 "username" to username
             )
 
-            database.child("users").child(userId).setValue(userData)
+            database.child(userId).setValue(userData)
                 .addOnSuccessListener {
                     Log.d("Register", "Información del usuario guardada en la base de datos")
                 }
