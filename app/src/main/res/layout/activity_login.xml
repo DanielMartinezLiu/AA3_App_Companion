@@ -23,14 +23,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/balatro_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/mail_field"
+            />
+        
         <EditText
             android:id="@+id/mail_field"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Mail"
-            android:textColorHint="@color/white"
-            android:textColor="@color/white"
-            android:background="@drawable/rounded_box_value"
+            android:layout_height="100dp"
+            android:hint="Username"
+            android:textColorHint="@color/grey"
+            android:textColor="@color/grey"
+            android:fontFamily="@font/balatro"
+            android:paddingHorizontal="50sp"
+            android:textSize="50dp"
+            android:background="@drawable/rounded_box_textfield"
+
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -38,50 +50,80 @@
         <EditText
             android:id="@+id/password_field"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:hint="Password"
-            android:textColorHint="@color/white"
-            android:textColor="@color/white"
-            android:background="@drawable/rounded_box_value"
+
+            android:textColorHint="@color/grey"
+            android:textColor="@color/grey"
+            android:fontFamily="@font/balatro"
+            android:paddingHorizontal="50sp"
+            android:textSize="50dp"
+            android:background="@drawable/rounded_box_textfield"
+            android:layout_marginTop="25dp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mail_field"
-            android:layout_marginTop="25dp"
             />
 
         <Button
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:text="Login"
+
+            android:textColorHint="@color/grey"
+            android:textColor="@color/white"
+            android:fontFamily="@font/balatro"
+            android:gravity="center"
+            android:textSize="50dp"
+            android:paddingHorizontal="100dp"
+
+            android:background="@drawable/rounded_square_box_blue"
+            android:layout_marginTop="90dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password_field"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="90dp"
             />
         <com.google.android.gms.common.SignInButton
             android:id="@+id/google_sign_in_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|center"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_button"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/have_account"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Don't have an account?"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
+
+            android:fontFamily="@font/balatro"
+            android:gravity="center"
+            android:textSize="20dp"
+
+            app:layout_constraintStart_toStartOf="@+id/register_button"
             app:layout_constraintTop_toBottomOf="@+id/google_sign_in_button"
             android:layout_marginTop="15dp"
             />
+
         <Button
             android:id="@+id/register_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Register Now"
+            android:layout_height="100dp"
+            android:text="Register Now!"
+            android:background="@drawable/rounded_square_box_red"
+
+            android:textColorHint="@color/grey"
+            android:textColor="@color/white"
+            android:fontFamily="@font/balatro"
+            android:gravity="center"
+            android:textSize="50dp"
+            android:paddingHorizontal="100dp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/have_account"
             app:layout_constraintStart_toStartOf="parent"
