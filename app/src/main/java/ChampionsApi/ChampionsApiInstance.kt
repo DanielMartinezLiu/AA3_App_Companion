@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ChampionsApiInstance {
-    private const val BASE_URL = "https://ddragon.leagueoflegends.com/cdn/15.1.1/data/en_US/"
+    private const val BASE_URL = "https://api.rawg.io/api/"
 
     val apiService: ChampionsApiService by lazy {
         Retrofit.Builder()

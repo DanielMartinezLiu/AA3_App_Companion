@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,34 +15,31 @@ import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
-class CharacterAdapter(private val _characters: List<LolChampion>) : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterAdapter.CharacterViewHolder {
+class GamesAdapter(private val _games: List<DarkSoulsGame>) : RecyclerView.Adapter<GamesAdapter.GameViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GamesAdapter.GameViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_layout_api, parent, false);
 
-        return CharacterViewHolder(view);
+        return GameViewHolder(view);
     }
 
-    override fun onBindViewHolder(holder: CharacterAdapter.CharacterViewHolder, position: Int) {
-        val marvel = _characters[position]
-        holder.bind(marvel)
+    override fun onBindViewHolder(holder: GamesAdapter.GameViewHolder, position: Int) {
+        val games = _games[position]
+        holder.bind(games)
     }
 
     override fun getItemCount(): Int {
-        return _characters.size;
+        return _games.size;
     }
 
-    class CharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class GameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
         private val characterName : TextView = itemView.findViewById(R.id.api_character_name)
-        //private val characterImage : ImageView = itemView.findViewById(R.id.api_character_image)
+        private val characterImage : ImageView = itemView.findViewById(R.id.api_character_image)
 
-        fun bind(lolChampion: LolChampion)
+        fun bind(darkSoulsGame: DarkSoulsGame)
         {
-            characterName.text = lolChampion.name
-
-            val urlSum = "https://ddragon.leagueoflegends.com/cdn/15.1.1/img/champion/" + lolChampion.image.full
-            Log.e("DEBUG", urlSum)
-            //loadImage(urlSum, characterImage)
+            characterName.text = darkSoulsGame.name
+            darkSoulsGame.background_image?.let { loadImage(it, characterImage) }
         }
 
         private fun loadImage(url: String, imageView: ImageView){
