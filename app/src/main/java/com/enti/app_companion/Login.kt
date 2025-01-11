@@ -1,9 +1,6 @@
 package com.enti.app_companion
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -20,7 +17,6 @@ import com.google.firebase.auth.GoogleAuthProvider
 
 class Login : AppCompatActivity() {
 
-    private lateinit var playerPrefs: SharedPreferences
     private lateinit var mailText: EditText
     private lateinit var passwordText: EditText
     private lateinit var loginButton: Button
@@ -29,23 +25,23 @@ class Login : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var analytics: FirebaseAnalytics
-
     private val RC_SIGN_IN = 9001 // Request code for Google Sign-In
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
+
+
         auth = FirebaseAuth.getInstance()
         analytics = FirebaseAnalytics.getInstance(this)
 
-        playerPrefs = getSharedPreferences("login_prefs", Context.MODE_PRIVATE)
-
-        val currentMail = playerPrefs.getString("mail", "")
-        if (currentMail != "") {
-            auth.signOut()
+        // Verifica si hay un usuario autenticado
+        if (auth.currentUser != null) {
+            Log.d("Login", "Hay user, este user es ${auth.currentUser}" )
             navigateToNews()
-            return
+            finish()
         }
 
         mailText = findViewById(R.id.mail_field)
@@ -61,6 +57,7 @@ class Login : AppCompatActivity() {
         registerButton.setOnClickListener {
             val intent = Intent(this, Register::class.java)
             startActivity(intent)
+            finish()
         }
 
         googleSignInButton.setOnClickListener {
@@ -69,42 +66,65 @@ class Login : AppCompatActivity() {
     }
 
     private fun loginWithEmail(email: String, password: String) {
+        // Utiliza Firebase Authentication para iniciar sesión con correo y contraseña.
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    playerPrefs.edit().putString("mail", email).apply()
+                    val bundle = Bundle()
+                    bundle.putString(FirebaseAnalytics.Param.METHOD, "${email} - Mail Login successful")
+                    analytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
+                    // Si el inicio de sesión es exitoso, navega a la pantalla principal.
                     navigateToNews()
                 } else {
+                    // Si falla, muestra un mensaje de error al usuario con detalles de la excepción.
                     Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    val bundle = Bundle()
+                    bundle.putString(FirebaseAnalytics.Param.METHOD, "${email} - Mail Login failed: ${task.exception?.message}")
+                    analytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
                 }
             }
     }
 
     private fun signInWithGoogle() {
-        // Configure Google Sign-In options
+        // Configura las opciones para el inicio de sesión con Google.
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id)) // Obtained from Firebase Console
-            .requestEmail()
+            .requestIdToken(getString(R.string.default_web_client_id)) // Obtén el ID de cliente desde Firebase Console.
+            .requestEmail() // Solicita el correo electrónico del usuario.
             .build()
 
+        // Crea un cliente de inicio de sesión de Google con las opciones configuradas.
         val googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        // Start the Google Sign-In intent
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        // Cierra sesión para asegurarte de que el selector de cuentas se muestre.
+        googleSignInClient.signOut().addOnCompleteListener {
+            // Inicia la actividad de inicio de sesión de Google una vez que la sesión se haya cerrado.
+            val signInIntent = googleSignInClient.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN) // Usa un código de solicitud para manejar el resultado.
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        // Verifica si el resultado corresponde al inicio de sesión con Google.
         if (requestCode == RC_SIGN_IN) {
+            // Obtén el resultado de la actividad de inicio de sesión.
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
+                // Intenta obtener la cuenta de Google desde el resultado.
                 val account = task.getResult(Exception::class.java)
                 if (account != null) {
+                    val bundle = Bundle()
+                    bundle.putString(FirebaseAnalytics.Param.METHOD, "Google login successful")
+                    analytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
+                    // Si la cuenta es válida, autentica con Firebase usando el ID Token.
                     firebaseAuthWithGoogle(account.idToken!!)
                 }
             } catch (e: Exception) {
+                // Si ocurre un error, registra el fallo y muestra un mensaje al usuario.
+                val bundle = Bundle()
+                bundle.putString(FirebaseAnalytics.Param.METHOD, "Google login failed")
+                analytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
                 Log.w("Login", "Google sign-in failed", e)
                 Toast.makeText(this, "Google sign-in failed", Toast.LENGTH_SHORT).show()
             }
@@ -112,18 +132,22 @@ class Login : AppCompatActivity() {
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
+        // Crea las credenciales de Firebase utilizando el ID Token proporcionado.
         val credential = GoogleAuthProvider.getCredential(idToken, null)
+
+        // Autentica al usuario con las credenciales en Firebase.
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    playerPrefs.edit().putString("mail", user?.email).apply()
+                    // Si la autenticación es exitosa, navega a la pantalla principal.
                     navigateToNews()
                 } else {
+                    // Si ocurre un error, muestra un mensaje al usuario con detalles de la excepción.
                     Toast.makeText(this, "Authentication Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
     }
+
 
     private fun navigateToNews() {
         val intent = Intent(this, News::class.java)
