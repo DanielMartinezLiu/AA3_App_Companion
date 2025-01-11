@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App_Companion</string>
+    <string name="default_web_client_id" >341129874009-kv4sbc0q7eqlibclv6mb8co12gt92qop.apps.googleusercontent.com</string>
+    <string name="test">Test</string>
+    <string name="highest_hand">Mano Mas Alta</string>
+    <string name="ante">Ante</string>
+    <string name="round">Ronda</string>
+    <string name="enter_text">Entrar Texto</string>
+    <string name="send">Enviar</string>
+    <string name="user">Usuario</string>
+    <string name="mail">Email</string>
+    <string name="password">Contraseña</string>
+    <string name="repeat_password">Repetir Contraseña</string>
+    <string name="register">Crear Cuenta</string>
+    <string name="login">Login</string>
+    <string name="have_account_question">Ya tienes cuenta?</string>
+    <string name="dont_have_account_question">No tienes cuenta?</string>
+    <string name="register_now">Crear Cuenta Ahora!</string>
+    <string name="enter_name">Entra Nombre</string>
+    <string name="confirm">Confirmar</string>
+    <string name="collection">Colección</string>
+    <string name="jokers">Jokers</string>
+    <string name="decks">Mazos</string>
+    <string name="vouchers">Vouchers</string>
+    <string name="tarots">Tarots</string>
+    <string name="planets">Planetas</string>
+    <string name="spectrals">Espectrales</string>
+
+</resources>

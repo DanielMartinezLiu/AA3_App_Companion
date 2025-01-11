@@ -123,8 +123,8 @@
         app:layout_constraintTop_toBottomOf="@id/header_layout">
 
         <!-- Profile Card View -->
-        <ImageView
-            android:id="@+id/profile_image_button"
+        <ImageButton
+            android:id="@+id/profile_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/profile_image"
@@ -146,28 +146,28 @@
             android:textSize="20sp"
             android:inputType="textPersonName"
 
-            app:layout_constraintLeft_toRightOf="@+id/profile_image_button"
+            app:layout_constraintLeft_toRightOf="@+id/profile_image"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/confirm_username_button"
             app:layout_constraintRight_toRightOf="parent" />
+
         <Button
             android:id="@+id/confirm_username_button"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginHorizontal="20dp"
             android:background="@drawable/rounded_box_green"
-            android:text="@string/confirm"
-            android:textSize="20sp"
             android:fontFamily="@font/balatro"
+            android:hint="@string/confirm"
             android:textColor="@color/white"
 
-            app:layout_constraintLeft_toRightOf="@+id/profile_image_button"
-            app:layout_constraintTop_toBottomOf="@+id/username_text"
             app:layout_constraintBottom_toTopOf="@id/highest_hand"
+            app:layout_constraintLeft_toRightOf="@+id/profile_image"
             app:layout_constraintRight_toRightOf="parent"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/username_text">
 
         </Button>
+
         <FrameLayout
             android:id="@id/highest_hand"
             android:layout_width="0dp"
@@ -175,7 +175,7 @@
             android:layout_marginHorizontal="20dp"
             android:background="@drawable/rounded_box_profile"
 
-            app:layout_constraintLeft_toRightOf="@+id/profile_image_button"
+            app:layout_constraintLeft_toRightOf="@+id/profile_image"
             app:layout_constraintTop_toBottomOf="@+id/confirm_username_button"
             app:layout_constraintBottom_toTopOf="@id/highest_ante"
             app:layout_constraintRight_toRightOf="parent">
@@ -189,7 +189,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:paddingHorizontal="20sp"
+                    android:paddingHorizontal="20dp"
                     android:text="@string/highest_hand"
                     android:fontFamily="@font/balatro"
                     android:textColor="@color/white"
@@ -229,10 +229,10 @@
             android:layout_marginStart="20dp"
             android:background="@drawable/rounded_box_profile"
 
-            app:layout_constraintLeft_toRightOf="@+id/profile_image_button"
+            app:layout_constraintLeft_toRightOf="@+id/profile_image"
             app:layout_constraintTop_toBottomOf="@+id/highest_hand"
             app:layout_constraintRight_toLeftOf="@+id/highest_round"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_image_button">
+            app:layout_constraintBottom_toBottomOf="@+id/profile_image">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -244,7 +244,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:paddingHorizontal="20sp"
+                    android:paddingHorizontal="20dp"
                     android:text="@string/ante"
                     android:fontFamily="@font/balatro"
                     android:textColor="@color/white"
@@ -284,7 +284,7 @@
             android:layout_marginStart="5dp"
             android:background="@drawable/rounded_box_profile"
 
-            app:layout_constraintBottom_toBottomOf="@+id/profile_image_button"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_image"
             app:layout_constraintLeft_toRightOf="@+id/highest_ante"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/highest_hand">
@@ -298,7 +298,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:paddingHorizontal="20sp"
+                    android:paddingHorizontal="20dp"
                     android:text="@string/round"
                     android:fontFamily="@font/balatro"
                     android:textColor="@color/white"
@@ -332,35 +332,29 @@
         </FrameLayout>
 
         <!-- Collections -->
+        <!-- Collections -->
         <TextView
             android:id="@+id/Collection"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_box_collection"
             android:gravity="center"
-            android:text="@string/collection"
-
-            android:fontFamily="@font/balatro"
-            android:textColor="@color/white"
-            android:textSize="50sp"
 
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_image_button"
             app:layout_constraintBottom_toTopOf="@id/Jokers"/>
         <FrameLayout
             android:id="@+id/Jokers"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/rounded_box_red"
 
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Collection"
+            app:layout_constraintRight_toLeftOf="@id/Tarot"
+            app:layout_constraintTop_toBottomOf="@id/profile_image"
             app:layout_constraintBottom_toTopOf="@id/Decks">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -372,11 +366,11 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:paddingHorizontal="10sp"
+                    android:paddingHorizontal="10dp"
                     android:text="@string/jokers"
                     android:fontFamily="@font/balatro"
                     android:textColor="@color/white"
-                    android:textSize="40sp"
+                    android:textSize="35sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/jokers_text"
@@ -396,7 +390,7 @@
                     android:fontFamily="@font/balatro"
                     android:text="@string/example_jokers_number"
                     android:textColor="@color/orange"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
@@ -404,14 +398,14 @@
         </FrameLayout>
         <FrameLayout
             android:id="@+id/Decks"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/rounded_box_red"
 
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/Planet"
             app:layout_constraintTop_toBottomOf="@id/Jokers"
             app:layout_constraintBottom_toTopOf="@id/Vouchers">
 
@@ -428,7 +422,7 @@
                     android:text="@string/decks"
                     android:fontFamily="@font/balatro"
                     android:textColor="@color/white"
-                    android:textSize="40sp"
+                    android:textSize="35sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/decks_text"
@@ -448,7 +442,7 @@
                     android:fontFamily="@font/balatro"
                     android:text="@string/example_decks_number"
                     android:textColor="@color/orange"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
@@ -456,16 +450,16 @@
         </FrameLayout>
         <FrameLayout
             android:id="@+id/Vouchers"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/rounded_box_red"
 
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/Spectral"
             app:layout_constraintTop_toBottomOf="@id/Decks"
-            app:layout_constraintBottom_toTopOf="@id/Tarot">
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -480,7 +474,7 @@
                     android:text="@string/vouchers"
                     android:fontFamily="@font/balatro"
                     android:textColor="@color/white"
-                    android:textSize="40sp"
+                    android:textSize="35sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/vouchers_text"
@@ -500,7 +494,7 @@
                     android:fontFamily="@font/balatro"
                     android:text="@string/example_vouchers_number"
                     android:textColor="@color/orange"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
@@ -508,15 +502,15 @@
         </FrameLayout>
         <FrameLayout
             android:id="@+id/Tarot"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/rounded_box_purple"
 
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/Jokers"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Vouchers"
+            app:layout_constraintTop_toBottomOf="@id/profile_image"
             app:layout_constraintBottom_toTopOf="@id/Planet">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -532,7 +526,7 @@
                     android:text="@string/tarots"
                     android:fontFamily="@font/balatro"
                     android:textColor="@color/white"
-                    android:textSize="40sp"
+                    android:textSize="35sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/tarot_text"
@@ -552,7 +546,7 @@
                     android:fontFamily="@font/balatro"
                     android:text="@string/example_tarots_number"
                     android:textColor="@color/orange"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
@@ -560,13 +554,13 @@
         </FrameLayout>
         <FrameLayout
             android:id="@+id/Planet"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/rounded_box_cian"
 
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/Decks"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/Tarot"
             app:layout_constraintBottom_toTopOf="@id/Spectral">
@@ -584,7 +578,7 @@
                     android:text="@string/planets"
                     android:fontFamily="@font/balatro"
                     android:textColor="@color/white"
-                    android:textSize="40sp"
+                    android:textSize="35sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/planet_text"
@@ -604,7 +598,7 @@
                     android:fontFamily="@font/balatro"
                     android:text="@string/example_planets_number"
                     android:textColor="@color/orange"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
@@ -612,16 +606,15 @@
         </FrameLayout>
         <FrameLayout
             android:id="@+id/Spectral"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/rounded_box_blue"
 
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/Vouchers"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Planet"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/Planet">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -636,7 +629,7 @@
                     android:text="@string/spectrals"
                     android:fontFamily="@font/balatro"
                     android:textColor="@color/white"
-                    android:textSize="40sp"
+                    android:textSize="35sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/spectral_text"
@@ -656,7 +649,7 @@
                     android:fontFamily="@font/balatro"
                     android:text="@string/example_spectrals_number"
                     android:textColor="@color/orange"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />

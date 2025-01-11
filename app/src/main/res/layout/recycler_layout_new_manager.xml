@@ -18,9 +18,9 @@
         android:background="@drawable/rounded_box_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Among Us"
+        android:text="@string/test"
         android:gravity="center"
         android:padding="10dp"
         android:fontFamily="@font/balatro"
-        android:textSize="35dp" />
+        android:textSize="35sp" />
 </LinearLayout>

@@ -47,7 +47,7 @@
                 android:background="@drawable/rounded_box_value"
 
                 android:fontFamily="@font/balatro"
-                android:text="Player Chat"
+                android:text="@string/test"
                 android:textColor="@color/white"
                 android:textSize="30sp"
 
@@ -65,7 +65,7 @@
                 android:gravity="center"
 
                 android:fontFamily="@font/balatro"
-                android:text="Lorem Ipsum dolor sit"
+                android:text="@string/test"
                 android:textColor="@color/white"
                 android:textSize="25sp"
 

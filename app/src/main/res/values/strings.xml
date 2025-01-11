@@ -1,5 +1,38 @@
 <resources>
     <string name="app_name">App_Companion</string>
     <string name="default_web_client_id" >341129874009-kv4sbc0q7eqlibclv6mb8co12gt92qop.apps.googleusercontent.com</string>
+    <string name="test">Test</string>
+    <string name="highest_hand">Highest Hand</string>
+    <string name="ante">Ante</string>
+    <string name="round">Round</string>
+    <string name="enter_text">Enter Text</string>
+    <string name="send">Send</string>
+    <string name="user">User</string>
+    <string name="mail">Email</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="have_account_question">Have an account?</string>
+    <string name="dont_have_account_question">Don\'t have an account?</string>
+    <string name="register_now">Register Now!</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="confirm">Confirm</string>
+    <string name="collection">Collection</string>
+    <string name="jokers">Jokers</string>
+    <string name="decks">Decks</string>
+    <string name="vouchers">Vouchers</string>
+    <string name="tarots">Tarots</string>
+    <string name="planets">Planets</string>
+    <string name="spectrals">Spectrals</string>
+    <string name="example_hand_number" translatable="false">8.913e19</string>
+    <string name="example_ante_number" translatable="false">12</string>
+    <string name="example_round_number" translatable="false">42</string>
+    <string name="example_jokers_number" translatable="false">107/150</string>
+    <string name="example_decks_number" translatable="false">9/15</string>
+    <string name="example_vouchers_number" translatable="false">18/32</string>
+    <string name="example_tarots_number" translatable="false">22/22</string>
+    <string name="example_planets_number" translatable="false">11/12</string>
+    <string name="example_spectrals_number" translatable="false">12/18</string>
 
 </resources>
