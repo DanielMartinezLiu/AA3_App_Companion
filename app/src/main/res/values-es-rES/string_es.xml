@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">App_Companion</string>
     <string name="default_web_client_id" >341129874009-kv4sbc0q7eqlibclv6mb8co12gt92qop.apps.googleusercontent.com</string>
-    <string name="test">test</string>
+    <string name="test">Test</string>
     <string name="highest_hand">Mano Mas Alta</string>
     <string name="ante">Ante</string>
     <string name="round">Ronda</string>

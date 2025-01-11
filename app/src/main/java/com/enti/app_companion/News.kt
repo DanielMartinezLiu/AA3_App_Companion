@@ -19,24 +19,24 @@ class News : AppCompatActivity() {
 
         setupHeader();
         val newsLeft = listOf(
-            NewsModel("Among Us", R.drawable.jokers),
-            NewsModel("Binding of Isaac", R.drawable.jokers),
-            NewsModel("Play In Physical", R.drawable.jokers),
-            NewsModel("Slay The Spire", R.drawable.jokers),
-            NewsModel("Among Us", R.drawable.jokers),
-            NewsModel("Binding of Isaac", R.drawable.jokers),
-            NewsModel("Play In Physical", R.drawable.jokers),
-            NewsModel("Slay The Spire", R.drawable.jokers),
+            NewsModel("Among Us", R.drawable.among_us_cards),
+            NewsModel("Binding of Isaac", R.drawable.issaac_cards),
+            NewsModel("Play In Physical", R.drawable.group_of_cards),
+            NewsModel("Slay The Spire", R.drawable.slay_the_spire_cards),
+            NewsModel("Among Us", R.drawable.among_us_cards),
+            NewsModel("Binding of Isaac", R.drawable.issaac_cards),
+            NewsModel("Play In Physical", R.drawable.group_of_cards),
+            NewsModel("Slay The Spire", R.drawable.slay_the_spire_cards),
         )
         val newsRight = listOf(
-            NewsModel("Play On Mobile", R.drawable.jokers),
-            NewsModel("New Patch", R.drawable.jokers),
-            NewsModel("The Witcher 3", R.drawable.jokers),
-            NewsModel("Cyberpunk 2077", R.drawable.jokers),
-            NewsModel("Play On Mobile", R.drawable.jokers),
-            NewsModel("New Patch", R.drawable.jokers),
-            NewsModel("The Witcher 3", R.drawable.jokers),
-            NewsModel("Cyberpunk 2077", R.drawable.jokers),
+            NewsModel("Play On Mobile", R.drawable.google_play),
+            NewsModel("New Patch", R.drawable.group_of_cards),
+            NewsModel("The Witcher 3", R.drawable.the_witcher_iii_cards),
+            NewsModel("Cyberpunk 2077", R.drawable.cyberpunk_cards),
+            NewsModel("Play On Mobile", R.drawable.google_play),
+            NewsModel("New Patch", R.drawable.group_of_cards),
+            NewsModel("The Witcher 3", R.drawable.the_witcher_iii_cards),
+            NewsModel("Cyberpunk 2077", R.drawable.cyberpunk_cards),
         )
 
         val recyclerLeftView : RecyclerView = findViewById(R.id.news_left_recycler_view)
