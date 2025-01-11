@@ -14,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase
 class Register : AppCompatActivity() {
 
     private lateinit var database: DatabaseReference
+    private val databaseUrl = "https://appcompanion-5f7f6-default-rtdb.europe-west1.firebasedatabase.app"
     private lateinit var auth: FirebaseAuth // FirebaseAuth para manejo de usuarios
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +26,6 @@ class Register : AppCompatActivity() {
         val passwordText: EditText = findViewById(R.id.password_field)
         val repeatedPasswordText: EditText = findViewById(R.id.repeat_password_field)
 
-        val databaseUrl = "https://appcompanion-5f7f6-default-rtdb.europe-west1.firebasedatabase.app"
         database = FirebaseDatabase.getInstance(databaseUrl).getReference("users")
         auth = FirebaseAuth.getInstance() // Inicializar FirebaseAuth
 
@@ -83,8 +83,9 @@ class Register : AppCompatActivity() {
         val userId = auth.currentUser?.uid // Obtener el UID del usuario actual
         if (userId != null) {
             val userData = mapOf(
-                "email" to email,
-                "username" to username
+                "id" to userId,
+                "mail" to email,
+                "user" to username
             )
 
             database.child(userId).setValue(userData)
