@@ -71,7 +71,7 @@ class UserChat : AppCompatActivity() {
         confirmButton.setOnClickListener {
             val message : String = inputText.text.toString()
             if (message.isNotBlank()) {
-                messages.add("You: $message")
+                messages.add("You $message")
                 chatAdapter.notifyItemInserted(messages.size - 1)
 
                 chatRecyclerView.scrollToPosition(messages.size - 1)
