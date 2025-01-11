@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "341129874009",
+    "project_id": "appcompanion-5f7f6",
+    "storage_bucket": "appcompanion-5f7f6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341129874009:android:f3f80314173bf11e18bf48",
+        "android_client_info": {
+          "package_name": "com.enti.app_companion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6pBuiYkKdVh9m7Falpdk5IN9ZkIWeLZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
