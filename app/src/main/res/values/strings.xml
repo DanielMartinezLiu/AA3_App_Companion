@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">App_Companion</string>
+    <string name="default_web_client_id" >341129874009-kv4sbc0q7eqlibclv6mb8co12gt92qop.apps.googleusercontent.com</string>
 
 </resources>
