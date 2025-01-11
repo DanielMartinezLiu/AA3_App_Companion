@@ -33,6 +33,7 @@ class Register : AppCompatActivity() {
         loginButton.setOnClickListener {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
+            finish()
         }
 
         val registerButton: Button = findViewById(R.id.register_button)
@@ -50,7 +51,7 @@ class Register : AppCompatActivity() {
             }
 
             // Validar que el correo y la contraseña no estén vacíos
-            if (mailContent.isEmpty() || passwordContent.isEmpty()) {
+            if (mailContent.isEmpty() || passwordContent.isEmpty() || userContent.isEmpty()) {
                 Toast.makeText(this, "El correo y la contraseña no pueden estar vacíos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -70,8 +71,9 @@ class Register : AppCompatActivity() {
                     saveUserToDatabase(email, username)
 
                     // Redirigir a la pantalla de inicio de sesión
-                    val intent = Intent(this, Login::class.java)
+                    val intent = Intent(this, News::class.java)
                     startActivity(intent)
+                    finish()
                 } else {
                     Log.e("Register", "Error al registrar el usuario", task.exception)
                     Toast.makeText(this, "Error al registrar: ${task.exception?.message}", Toast.LENGTH_SHORT).show()

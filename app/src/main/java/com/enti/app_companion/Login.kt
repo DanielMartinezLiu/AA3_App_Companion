@@ -55,6 +55,7 @@ class Login : AppCompatActivity() {
         registerButton.setOnClickListener {
             val intent = Intent(this, Register::class.java)
             startActivity(intent)
+            finish()
         }
 
         googleSignInButton.setOnClickListener {
@@ -86,9 +87,12 @@ class Login : AppCompatActivity() {
         // Crea un cliente de inicio de sesión de Google con las opciones configuradas.
         val googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        // Inicia la actividad de inicio de sesión de Google.
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN) // Usa un código de solicitud para manejar el resultado.
+        // Cierra sesión para asegurarte de que el selector de cuentas se muestre.
+        googleSignInClient.signOut().addOnCompleteListener {
+            // Inicia la actividad de inicio de sesión de Google una vez que la sesión se haya cerrado.
+            val signInIntent = googleSignInClient.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN) // Usa un código de solicitud para manejar el resultado.
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

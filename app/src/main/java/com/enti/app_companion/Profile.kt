@@ -1,8 +1,6 @@
 package com.enti.app_companion
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
@@ -12,10 +10,13 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
@@ -31,39 +32,44 @@ class Profile : AppCompatActivity() {
     private lateinit var logoutButton: ImageButton
     private  lateinit var usernameText: EditText
     private  lateinit var confirmUsernameButton: Button
-    private  val isMail = false
+    private  var isGoogleUser = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_profile)
 
-        setupHeader();
 
         auth = FirebaseAuth.getInstance()
+        val userId : String? = auth.currentUser?.uid // Obtener el UID del usuario actual
+
+        isGoogleUser = getIsGoogleUser()
+
         database = FirebaseDatabase.getInstance(databaseUrl).getReference("users")
+        database.addChildEventListener(createChildEventListener())
 
         logoutButton = findViewById(R.id.logout_button)
         logoutButton.setOnClickListener{
             auth.signOut()
+
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
             finish()
         }
 
         usernameText = findViewById(R.id.username_text)
-        val userId : String? = auth.currentUser?.uid // Obtener el UID del usuario actual
 
-        if(isMail){
-
-        }else{
+        if(isGoogleUser){
+            loadGoogleUserData()
+        }
+        else{
             loadMailUserData(userId)
         }
-
 
         confirmUsernameButton = findViewById(R.id.confirm_username_button)
 
         confirmUsernameButton.setOnClickListener{
-            if(isMail){
+            if(isGoogleUser){
                 Toast.makeText(this, "No se puede modificar un usuario de una cuenta con mail", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -93,8 +99,20 @@ class Profile : AppCompatActivity() {
             findViewById(R.id.header_button_3)
         )
     }
+    private  fun getIsGoogleUser(): Boolean {
 
-    private  fun  loadMailUserData(userId: String?){
+        val currentUser = FirebaseAuth.getInstance().currentUser ?: return false
+
+        return currentUser.providerData.any { it.providerId == GoogleAuthProvider.PROVIDER_ID }
+    }
+    private  fun loadGoogleUserData(){
+        val currentUser = FirebaseAuth.getInstance().currentUser ?: return
+        //Nombre de usuario
+        val displayName = currentUser.displayName
+        usernameText.text = Editable.Factory.getInstance().newEditable(displayName)
+    }
+
+    private  fun  loadMailUserData(userId: String?) {
         if(userId == null){
             Toast.makeText(this, "Invalid user", Toast.LENGTH_SHORT).show()
             return
@@ -119,14 +137,21 @@ class Profile : AppCompatActivity() {
             }
     }
 
-    private  fun  updateUsername(userId: String?){
+    private  fun  updateUsername(userId: String?) {
 
         if(userId == null){
             Toast.makeText(this, "Invalid user", Toast.LENGTH_SHORT).show()
             return
         }
 
+
         val newUsername = usernameText.text.toString()
+
+        if(newUsername == ""){
+            Toast.makeText(this, "Introduce un nombre valido", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val updatedData = mapOf(
             "user" to newUsername
         )
@@ -139,4 +164,32 @@ class Profile : AppCompatActivity() {
                 Log.e("Database", "Error al actualizar información del usuario", exception)
             }
     }
+
+    private  fun createChildEventListener(): ChildEventListener {
+
+        return object : ChildEventListener{
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                if(isGoogleUser)
+                    return
+
+                val newUsername = snapshot.child("user").getValue(String::class.java)
+                usernameText.text = Editable.Factory.getInstance().newEditable(newUsername)
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        }
+    }
+
 }
+
+

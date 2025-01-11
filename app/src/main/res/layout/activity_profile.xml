@@ -123,8 +123,8 @@
         app:layout_constraintTop_toBottomOf="@id/header_layout">
 
         <!-- Profile Card View -->
-        <ImageButton
-            android:id="@+id/profile_image"
+        <ImageView
+            android:id="@+id/profile_image_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/profile_image"
@@ -146,7 +146,7 @@
             android:textSize="20sp"
             android:inputType="textPersonName"
 
-            app:layout_constraintLeft_toRightOf="@+id/profile_image"
+            app:layout_constraintLeft_toRightOf="@+id/profile_image_button"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/confirm_username_button"
             app:layout_constraintRight_toRightOf="parent" />
@@ -161,7 +161,7 @@
             android:fontFamily="@font/balatro"
             android:textColor="@color/white"
 
-            app:layout_constraintLeft_toRightOf="@+id/profile_image"
+            app:layout_constraintLeft_toRightOf="@+id/profile_image_button"
             app:layout_constraintTop_toBottomOf="@+id/username_text"
             app:layout_constraintBottom_toTopOf="@id/highest_hand"
             app:layout_constraintRight_toRightOf="parent"
@@ -175,7 +175,7 @@
             android:layout_marginHorizontal="20dp"
             android:background="@drawable/rounded_box_profile"
 
-            app:layout_constraintLeft_toRightOf="@+id/profile_image"
+            app:layout_constraintLeft_toRightOf="@+id/profile_image_button"
             app:layout_constraintTop_toBottomOf="@+id/confirm_username_button"
             app:layout_constraintBottom_toTopOf="@id/highest_ante"
             app:layout_constraintRight_toRightOf="parent">
@@ -229,10 +229,10 @@
             android:layout_marginStart="20dp"
             android:background="@drawable/rounded_box_profile"
 
-            app:layout_constraintLeft_toRightOf="@+id/profile_image"
+            app:layout_constraintLeft_toRightOf="@+id/profile_image_button"
             app:layout_constraintTop_toBottomOf="@+id/highest_hand"
             app:layout_constraintRight_toLeftOf="@+id/highest_round"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_image">
+            app:layout_constraintBottom_toBottomOf="@+id/profile_image_button">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -284,7 +284,7 @@
             android:layout_marginStart="5dp"
             android:background="@drawable/rounded_box_profile"
 
-            app:layout_constraintBottom_toBottomOf="@+id/profile_image"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_image_button"
             app:layout_constraintLeft_toRightOf="@+id/highest_ante"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/highest_hand">
@@ -348,7 +348,7 @@
 
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_image"
+            app:layout_constraintTop_toBottomOf="@id/profile_image_button"
             app:layout_constraintBottom_toTopOf="@id/Jokers"/>
         <FrameLayout
             android:id="@+id/Jokers"
