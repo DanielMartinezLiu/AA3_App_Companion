@@ -25,12 +25,14 @@ class Login : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var analytics: FirebaseAnalytics
-
     private val RC_SIGN_IN = 9001 // Request code for Google Sign-In
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+
+
 
         auth = FirebaseAuth.getInstance()
         analytics = FirebaseAnalytics.getInstance(this)
@@ -68,11 +70,17 @@ class Login : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    val bundle = Bundle()
+                    bundle.putString(FirebaseAnalytics.Param.METHOD, "${email} - Mail Login successful")
+                    analytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
                     // Si el inicio de sesión es exitoso, navega a la pantalla principal.
                     navigateToNews()
                 } else {
                     // Si falla, muestra un mensaje de error al usuario con detalles de la excepción.
                     Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    val bundle = Bundle()
+                    bundle.putString(FirebaseAnalytics.Param.METHOD, "${email} - Mail Login failed: ${task.exception?.message}")
+                    analytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
                 }
             }
     }
@@ -106,11 +114,17 @@ class Login : AppCompatActivity() {
                 // Intenta obtener la cuenta de Google desde el resultado.
                 val account = task.getResult(Exception::class.java)
                 if (account != null) {
+                    val bundle = Bundle()
+                    bundle.putString(FirebaseAnalytics.Param.METHOD, "Google login successful")
+                    analytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
                     // Si la cuenta es válida, autentica con Firebase usando el ID Token.
                     firebaseAuthWithGoogle(account.idToken!!)
                 }
             } catch (e: Exception) {
                 // Si ocurre un error, registra el fallo y muestra un mensaje al usuario.
+                val bundle = Bundle()
+                bundle.putString(FirebaseAnalytics.Param.METHOD, "Google login failed")
+                analytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
                 Log.w("Login", "Google sign-in failed", e)
                 Toast.makeText(this, "Google sign-in failed", Toast.LENGTH_SHORT).show()
             }

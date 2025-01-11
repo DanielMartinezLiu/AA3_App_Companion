@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -16,6 +17,7 @@ class Register : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private val databaseUrl = "https://appcompanion-5f7f6-default-rtdb.europe-west1.firebasedatabase.app"
     private lateinit var auth: FirebaseAuth // FirebaseAuth para manejo de usuarios
+    private lateinit var analytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +30,7 @@ class Register : AppCompatActivity() {
 
         database = FirebaseDatabase.getInstance(databaseUrl).getReference("users")
         auth = FirebaseAuth.getInstance() // Inicializar FirebaseAuth
+        analytics = FirebaseAnalytics.getInstance(this)
 
         val loginButton: Button = findViewById(R.id.login_button)
         loginButton.setOnClickListener {
@@ -69,6 +72,9 @@ class Register : AppCompatActivity() {
 
                     // Guardar información adicional en la base de datos
                     saveUserToDatabase(email, username)
+                    val bundle = Bundle()
+                    bundle.putString(FirebaseAnalytics.Param.METHOD, "Sing up succes: $email")
+                    analytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle)
 
                     // Redirigir a la pantalla de inicio de sesión
                     val intent = Intent(this, News::class.java)
@@ -77,6 +83,9 @@ class Register : AppCompatActivity() {
                 } else {
                     Log.e("Register", "Error al registrar el usuario", task.exception)
                     Toast.makeText(this, "Error al registrar: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    val bundle = Bundle()
+                    bundle.putString(FirebaseAnalytics.Param.METHOD, "Sing Up failed: ${task.exception?.message}")
+                    analytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle)
                 }
             }
     }
