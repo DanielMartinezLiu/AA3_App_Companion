@@ -8,16 +8,31 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.auth.FirebaseAuth
 
 
 class Profile : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var logoutButton: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_profile)
 
+        auth = FirebaseAuth.getInstance()
 
         setupHeader();
+
+        logoutButton = findViewById(R.id.logout_button)
+
+        logoutButton.setOnClickListener{
+            auth.signOut()
+            val intent = Intent(this, Login::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun setupHeader()

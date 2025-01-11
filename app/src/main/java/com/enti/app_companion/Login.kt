@@ -44,8 +44,8 @@ class Login : AppCompatActivity() {
         val currentMail = playerPrefs.getString("mail", "")
         if (currentMail != "") {
             auth.signOut()
-            //navigateToNews()
-            //return
+            navigateToNews()
+            return
         }
 
         mailText = findViewById(R.id.mail_field)
