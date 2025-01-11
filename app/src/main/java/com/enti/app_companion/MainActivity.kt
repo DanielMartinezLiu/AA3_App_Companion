@@ -1,7 +1,6 @@
 package com.enti.app_companion
 
-import HelldiversIIApi.HelldiversIIApiInstance
-import HelldiversIIApi.HelldiversIIResponse
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -22,23 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         setupHeader();
 
-        val call = HelldiversIIApiInstance.apiService.getPlanets()
 
-        call.enqueue(object : Callback<HelldiversIIResponse> {
-            override fun onResponse(call: Call<HelldiversIIResponse>, response: Response<HelldiversIIResponse>) {
-                if (response.isSuccessful) {
-                    val planets  = response.body()?.data?.results
-                    planets?.forEach { planet ->
-                        Log.d("Planet", "Name : ${planet.index}, Description: ${planet.name}")
-                    }
-                }else {
-                    Log.e("ApiError", "Response not successful: ${response.code()} - ${response.message()}")
-                }
-            }
-            override fun onFailure(call: Call<HelldiversIIResponse>, t: Throwable) {
-                Log.e("ApiError", t.message ?: "Unknown error")
-            }
-        })
     }
 
     private fun setupHeader()

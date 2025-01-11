@@ -28,6 +28,9 @@
 
         </activity>
         <activity
+            android:name=".Api"
+            android:exported="false" />
+        <activity
             android:name=".UserChat"
             android:exported="false" />
         <activity
