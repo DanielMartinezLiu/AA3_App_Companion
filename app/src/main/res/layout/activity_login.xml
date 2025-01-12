@@ -31,14 +31,13 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/mail_field"
             />
         
         <EditText
             android:id="@+id/mail_field"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:hint="@string/user"
+            android:hint="@string/mail"
             android:textColorHint="@color/grey"
             android:textColor="@color/grey"
             android:fontFamily="@font/balatro"
@@ -46,9 +45,8 @@
             android:textSize="50sp"
             android:background="@drawable/rounded_box_textfield"
 
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             />
         <EditText
             android:id="@+id/password_field"
@@ -83,7 +81,7 @@
             android:paddingHorizontal="100dp"
 
             android:background="@drawable/rounded_square_box_blue"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password_field"
             app:layout_constraintStart_toStartOf="parent"
@@ -126,7 +124,7 @@
             android:fontFamily="@font/balatro"
             android:gravity="center"
             android:textSize="50sp"
-            android:paddingHorizontal="100dp"
+            android:paddingHorizontal="50dp"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/have_account"

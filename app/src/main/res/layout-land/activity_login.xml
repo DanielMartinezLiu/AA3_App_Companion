@@ -25,13 +25,12 @@
 
         <ImageView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="713dp"
+            android:layout_height="130dp"
             android:src="@drawable/balatro_title"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/mail_field"
@@ -80,7 +79,7 @@
             android:fontFamily="@font/balatro"
             android:gravity="center"
             android:textSize="50sp"
-            android:paddingHorizontal="100dp"
+            android:paddingHorizontal="50dp"
 
             android:background="@drawable/rounded_square_box_blue"
             android:layout_marginTop="90dp"

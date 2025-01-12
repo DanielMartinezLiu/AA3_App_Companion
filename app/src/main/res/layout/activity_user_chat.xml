@@ -169,7 +169,8 @@
         android:id="@id/field_text_input"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:layout_margin="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/rounded_box_profile"
 
         app:layout_constraintBottom_toBottomOf="parent"
@@ -217,5 +218,4 @@
                 app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
