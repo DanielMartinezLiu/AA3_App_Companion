@@ -679,6 +679,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
+    <Button
+        android:id="@+id/exit_button"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:text="@string/exit_app"
+        android:fontFamily="@font/balatro"
+        android:background="@drawable/rounded_box_red"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="40dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/logout_button"
+        app:layout_constraintEnd_toStartOf="@id/api_button"
+        />
 
 
     <ImageButton

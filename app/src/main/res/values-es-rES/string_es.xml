@@ -26,5 +26,6 @@
     <string name="tarots">Tarots</string>
     <string name="planets">Planetas</string>
     <string name="spectrals">Espectrales</string>
+    <string name="exit_app">Cerrar App</string>
 
 </resources>

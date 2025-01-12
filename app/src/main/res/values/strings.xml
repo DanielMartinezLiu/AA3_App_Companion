@@ -34,5 +34,6 @@
     <string name="example_tarots_number" translatable="false">22/22</string>
     <string name="example_planets_number" translatable="false">11/12</string>
     <string name="example_spectrals_number" translatable="false">12/18</string>
+    <string name="exit_app">Exit App</string>
 
 </resources>

@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
@@ -87,6 +88,12 @@ class Profile : AppCompatActivity() {
         }
 
         setupHeader()
+
+        val exitButton: Button = findViewById(R.id.exit_button)
+
+        exitButton.setOnClickListener {
+            showExitConfirmationDialog()
+        }
     }
 
     private fun setupHeader() {
@@ -101,6 +108,20 @@ class Profile : AppCompatActivity() {
             ),
             findViewById(R.id.header_button_3)
         )
+    }
+
+    private fun showExitConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirmación")
+        builder.setMessage("¿Estás seguro de que deseas salir de la aplicación?")
+        builder.setPositiveButton("Sí") { _, _ ->
+            finishAffinity() // Cierra la aplicación.
+        }
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.dismiss() // Cierra solo el cuadro de diálogo.
+        }
+        builder.setCancelable(true) // Permite cerrar el diálogo tocando fuera de él.
+        builder.show()
     }
 
     private fun getIsGoogleUser(): Boolean {
