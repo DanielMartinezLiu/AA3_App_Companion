@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/record_image"
-        android:layout_width="150dp"
-        android:layout_height="180dp"
+        android:layout_width="100dp"
+        android:layout_height="130dp"
         android:src="@drawable/abandoned_deck"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,7 +19,7 @@
     <FrameLayout
         android:id="@id/highest_hand"
         android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_height="50dp"
         android:layout_marginHorizontal="20dp"
         android:background="@drawable/rounded_box_profile"
         app:layout_constraintLeft_toRightOf="@+id/record_image"
@@ -39,7 +39,7 @@
                 android:text="@string/highest_hand"
                 android:fontFamily="@font/balatro"
                 android:textColor="@color/white"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/higher_hand_text"
@@ -48,7 +48,7 @@
             <!-- Inner Text -->
             <TextView
                 android:id="@+id/higher_hand_text"
-                android:layout_width="250dp"
+                android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end|center"
                 android:padding="5dp"
@@ -60,7 +60,7 @@
                 android:fontFamily="@font/balatro"
                 android:text="@string/example_hand_number"
                 android:textColor="@color/red"
-                android:textSize="30sp"
+                android:textSize="20sp"
 
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -70,7 +70,7 @@
     <FrameLayout
         android:id="@id/highest_ante"
         android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
         android:layout_marginStart="20dp"
@@ -95,7 +95,7 @@
                 android:text="@string/ante"
                 android:fontFamily="@font/balatro"
                 android:textColor="@color/white"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/best_ante_text"
@@ -104,7 +104,7 @@
             <!-- Inner Text -->
             <TextView
                 android:id="@+id/best_ante_text"
-                android:layout_width="90dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end|center"
                 android:padding="5dp"
@@ -116,7 +116,7 @@
                 android:fontFamily="@font/balatro"
                 android:text="@string/example_ante_number"
                 android:textColor="@color/orange"
-                android:textSize="25sp"
+                android:textSize="20sp"
 
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -126,7 +126,7 @@
     <FrameLayout
         android:id="@id/highest_round"
         android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="5dp"
@@ -150,7 +150,7 @@
                 android:text="@string/round"
                 android:fontFamily="@font/balatro"
                 android:textColor="@color/white"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/best_round_text"
@@ -159,7 +159,7 @@
             <!-- Inner Text -->
             <TextView
                 android:id="@+id/best_round_text"
-                android:layout_width="90dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:padding="5dp"
@@ -171,7 +171,7 @@
                 android:fontFamily="@font/balatro"
                 android:text="@string/example_round_number"
                 android:textColor="@color/orange"
-                android:textSize="25sp"
+                android:textSize="20sp"
 
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
