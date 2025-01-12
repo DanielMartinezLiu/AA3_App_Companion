@@ -3,6 +3,7 @@ package com.enti.app_companion
 import ChampionsApi.ChampionsApiInstance
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,8 @@ class Api : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge() // Configura diseño de borde a borde
         setContentView(R.layout.activity_api)
+
+        setupHeader()
 
         recyclerView = findViewById(R.id.api_recycle_view)
         recyclerView.layoutManager = LinearLayoutManager(this) // Establece disposición de lista
@@ -69,4 +72,18 @@ class Api : AppCompatActivity() {
         })
     }
 
+    // Configura los botones del encabezado y sus destinos
+    private fun setupHeader() {
+        HeaderUtils.setupHeader(
+            this,
+            mapOf(
+                findViewById<Button>(R.id.header_button_1) to News::class.java,
+                findViewById<Button>(R.id.header_button_2) to Chat::class.java,
+                findViewById<Button>(R.id.header_button_3) to Profile::class.java,
+                findViewById<Button>(R.id.header_button_4) to Jokers::class.java,
+                findViewById<Button>(R.id.header_button_5) to Record::class.java
+            ),
+            findViewById(R.id.header_button_3) // Indica el botón actualmente seleccionado
+        )
+    }
 }
