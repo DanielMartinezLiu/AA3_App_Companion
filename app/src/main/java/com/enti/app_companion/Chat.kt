@@ -5,23 +5,21 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import models.ChatAdapter
 import models.ChatModel
-import models.RecordAdapter
-import models.RecordModel
 
 class Chat : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_chat)
 
-        setupHeader();
+        setupHeader()
 
+        // Lista de chats predefinidos con imágenes y nombres
         val chats = listOf(
             ChatModel(R.drawable.abandoned_deck, "Abandoned Deck", "New Text"),
             ChatModel(R.drawable.black_deck, "Black Deck", "New Text"),
@@ -33,19 +31,23 @@ class Chat : AppCompatActivity() {
             ChatModel(R.drawable.zodiac_deck, "Zodiac Deck", "New Text"),
         )
 
-        val recyclerView : RecyclerView = findViewById(R.id.chat_recycle_view)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        // Configuración del RecyclerView
+        val recyclerView: RecyclerView = findViewById(R.id.chat_recycle_view)
+        recyclerView.layoutManager = LinearLayoutManager(this) // Disposición lineal de elementos
 
+        // Asigna un adaptador al RecyclerView para mostrar la lista de chats
         recyclerView.adapter = ChatAdapter(chats) { chat ->
-            val intent : Intent = Intent(this, UserChat::class.java)
-            intent.putExtra("chat_image", chat.imageResId)
-            intent.putExtra("chat_username", chat.username)
+            // Maneja el clic en un elemento de la lista
+            val intent: Intent = Intent(this, UserChat::class.java).apply {
+                putExtra("chat_image", chat.imageResId) // Pasa la imagen del chat al intent
+                putExtra("chat_username", chat.username) // Pasa el nombre del chat al intent
+            }
             startActivity(intent)
         }
     }
 
-    private fun setupHeader()
-    {
+    // Configura los botones del encabezado y sus destinos
+    private fun setupHeader() {
         HeaderUtils.setupHeader(
             this,
             mapOf(
@@ -55,7 +57,7 @@ class Chat : AppCompatActivity() {
                 findViewById<Button>(R.id.header_button_4) to Jokers::class.java,
                 findViewById<Button>(R.id.header_button_5) to Record::class.java
             ),
-            findViewById(R.id.header_button_2)
+            findViewById(R.id.header_button_2) // Indica el botón actualmente seleccionado
         )
     }
 }
