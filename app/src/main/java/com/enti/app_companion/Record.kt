@@ -21,8 +21,9 @@ class Record : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_record)
 
-        setupHeader();
+        setupHeader()
 
+        // Crea una lista de objetos RecordModel que representan los registros a mostrar
         val records = listOf(
             RecordModel(R.drawable.black_deck, 1000, 10, 10),
             RecordModel(R.drawable.zodiac_deck, 1000, 10, 10),
@@ -33,12 +34,16 @@ class Record : AppCompatActivity() {
             RecordModel(R.drawable.challenge_deck, 1000, 10, 10),
             RecordModel(R.drawable.anaglyph_deck, 1000, 10, 10),
             RecordModel(R.drawable.ghost_deck, 1000, 10, 10)
-            )
+        )
 
-        val recyclerView : RecyclerView = findViewById(R.id.record_recycle_view)
+        // Obtiene la referencia al RecyclerView desde el diseño
+        val recyclerView: RecyclerView = findViewById(R.id.record_recycle_view)
+        // Establece un LinearLayoutManager para organizar los elementos en una lista vertical
         recyclerView.layoutManager = LinearLayoutManager(this)
+        // Asigna un adaptador al RecyclerView para mostrar la lista de registros
         recyclerView.adapter = RecordAdapter(records)
     }
+
 
     private fun setupHeader()
     {

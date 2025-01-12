@@ -65,24 +65,30 @@ class Register : AppCompatActivity() {
     }
 
     private fun registerWithEmail(email: String, password: String, username: String) {
+        // Crea un usuario en Firebase Authentication con correo electrónico y contraseña
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d("Register", "Usuario registrado con éxito")
 
-                    // Guardar información adicional en la base de datos
+                    // Guarda información adicional del usuario en la base de datos
                     saveUserToDatabase(email, username)
+
+                    // Registra un evento de éxito en Firebase Analytics
                     val bundle = Bundle()
                     bundle.putString(FirebaseAnalytics.Param.METHOD, "Sing up succes: $email")
                     analytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle)
 
-                    // Redirigir a la pantalla de inicio de sesión
+                    // Redirige al usuario a la pantalla de inicio de sesión
                     val intent = Intent(this, News::class.java)
                     startActivity(intent)
                     finish()
                 } else {
+                    // Maneja errores de registro
                     Log.e("Register", "Error al registrar el usuario", task.exception)
                     Toast.makeText(this, "Error al registrar: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+
+                    // Registra un evento de error en Firebase Analytics
                     val bundle = Bundle()
                     bundle.putString(FirebaseAnalytics.Param.METHOD, "Sing Up failed: ${task.exception?.message}")
                     analytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle)
@@ -91,21 +97,26 @@ class Register : AppCompatActivity() {
     }
 
     private fun saveUserToDatabase(email: String, username: String) {
-        val userId = auth.currentUser?.uid // Obtener el UID del usuario actual
+        // Obtiene el UID del usuario actual
+        val userId = auth.currentUser?.uid
         if (userId != null) {
+            // Crea un mapa con los datos del usuario para guardar en la base de datos
             val userData = mapOf(
                 "id" to userId,
                 "mail" to email,
                 "user" to username
             )
 
+            // Guarda los datos del usuario en la base de datos bajo su UID
             database.child(userId).setValue(userData)
                 .addOnSuccessListener {
                     Log.d("Register", "Información del usuario guardada en la base de datos")
                 }
                 .addOnFailureListener { exception ->
+                    // Maneja errores al guardar datos en la base de datos
                     Log.e("Register", "Error al guardar información del usuario", exception)
                 }
         }
     }
+
 }

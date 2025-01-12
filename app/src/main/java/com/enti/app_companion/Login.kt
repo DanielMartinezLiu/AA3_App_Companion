@@ -63,17 +63,17 @@ class Login : AppCompatActivity() {
     }
 
     private fun loginWithEmail(email: String, password: String) {
-        // Utiliza Firebase Authentication para iniciar sesión con correo y contraseña.
+        // Utiliza Firebase Authentication para iniciar sesión con correo y contraseña
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val bundle = Bundle()
                     bundle.putString(FirebaseAnalytics.Param.METHOD, "${email} - Mail Login successful")
                     analytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
-                    // Si el inicio de sesión es exitoso, navega a la pantalla principal.
+                    // Si el inicio de sesión es exitoso, navega a la pantalla principal
                     navigateToNews()
                 } else {
-                    // Si falla, muestra un mensaje de error al usuario con detalles de la excepción.
+                    // Si falla, muestra un mensaje de error al usuario con detalles de la excepción
                     Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     val bundle = Bundle()
                     bundle.putString(FirebaseAnalytics.Param.METHOD, "${email} - Mail Login failed: ${task.exception?.message}")
@@ -83,42 +83,42 @@ class Login : AppCompatActivity() {
     }
 
     private fun signInWithGoogle() {
-        // Configura las opciones para el inicio de sesión con Google.
+        // Configura las opciones para el inicio de sesión con Google
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id)) // Obtén el ID de cliente desde Firebase Console.
-            .requestEmail() // Solicita el correo electrónico del usuario.
+            .requestIdToken(getString(R.string.default_web_client_id)) // Obtén el ID de cliente desde Firebase Console
+            .requestEmail() // Solicita el correo electrónico del usuario
             .build()
 
-        // Crea un cliente de inicio de sesión de Google con las opciones configuradas.
+        // Crea un cliente de inicio de sesión de Google con las opciones configuradas
         val googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        // Cierra sesión para asegurarte de que el selector de cuentas se muestre.
+        // Cierra sesión para asegurarte de que el selector de cuentas se muestre
         googleSignInClient.signOut().addOnCompleteListener {
-            // Inicia la actividad de inicio de sesión de Google una vez que la sesión se haya cerrado.
+            // Inicia la actividad de inicio de sesión de Google una vez que la sesión se haya cerrado
             val signInIntent = googleSignInClient.signInIntent
-            startActivityForResult(signInIntent, RC_SIGN_IN) // Usa un código de solicitud para manejar el resultado.
+            startActivityForResult(signInIntent, RC_SIGN_IN) // Usa un código de solicitud para manejar el resultado
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        // Verifica si el resultado corresponde al inicio de sesión con Google.
+        // Verifica si el resultado corresponde al inicio de sesión con Google
         if (requestCode == RC_SIGN_IN) {
-            // Obtén el resultado de la actividad de inicio de sesión.
+            // Obtén el resultado de la actividad de inicio de sesión
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                // Intenta obtener la cuenta de Google desde el resultado.
+                // Intenta obtener la cuenta de Google desde el resultado
                 val account = task.getResult(Exception::class.java)
                 if (account != null) {
                     val bundle = Bundle()
                     bundle.putString(FirebaseAnalytics.Param.METHOD, "Google login successful")
                     analytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
-                    // Si la cuenta es válida, autentica con Firebase usando el ID Token.
+                    // Si la cuenta es válida, autentica con Firebase usando el ID Token
                     firebaseAuthWithGoogle(account.idToken!!)
                 }
             } catch (e: Exception) {
-                // Si ocurre un error, registra el fallo y muestra un mensaje al usuario.
+                // Si ocurre un error, registra el fallo y muestra un mensaje al usuario
                 val bundle = Bundle()
                 bundle.putString(FirebaseAnalytics.Param.METHOD, "Google login failed")
                 analytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
@@ -129,17 +129,17 @@ class Login : AppCompatActivity() {
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
-        // Crea las credenciales de Firebase utilizando el ID Token proporcionado.
+        // Crea las credenciales de Firebase utilizando el ID Token proporcionado
         val credential = GoogleAuthProvider.getCredential(idToken, null)
 
-        // Autentica al usuario con las credenciales en Firebase.
+        // Autentica al usuario con las credenciales en Firebase
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Si la autenticación es exitosa, navega a la pantalla principal.
+                    // Si la autenticación es exitosa, navega a la pantalla principal
                     navigateToNews()
                 } else {
-                    // Si ocurre un error, muestra un mensaje al usuario con detalles de la excepción.
+                    // Si ocurre un error, muestra un mensaje al usuario con detalles de la excepción
                     Toast.makeText(this, "Authentication Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }

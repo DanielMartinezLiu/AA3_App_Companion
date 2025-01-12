@@ -17,6 +17,7 @@ class Jokers : AppCompatActivity() {
 
         setupHeader()
 
+        // Define una lista de jokers con sus nombres y imagenes
         val jokers = listOf(
             JokersModel("Joker", R.drawable.joker),
             JokersModel("Greedy Joker", R.drawable.greedy_joker),
@@ -45,13 +46,13 @@ class Jokers : AppCompatActivity() {
             JokersModel("Loyalty Card", R.drawable.loyalty_card),
         )
 
-        val recyclerView : RecyclerView = findViewById(R.id.jokers_recycle_view)
+        // Configura el RecyclerView con un diseño de cuadrícula de 3 columnas
+        val recyclerView: RecyclerView = findViewById(R.id.jokers_recycle_view)
         recyclerView.layoutManager = GridLayoutManager(this, 3)
-        recyclerView.adapter = JokersAdapter(jokers)
+        recyclerView.adapter = JokersAdapter(jokers) // Asigna el adaptador para mostrar los elementos
     }
 
-    private fun setupHeader()
-    {
+    private fun setupHeader() {
         HeaderUtils.setupHeader(
             this,
             mapOf(
@@ -61,7 +62,7 @@ class Jokers : AppCompatActivity() {
                 findViewById<Button>(R.id.header_button_4) to Jokers::class.java,
                 findViewById<Button>(R.id.header_button_5) to Record::class.java
             ),
-            findViewById(R.id.header_button_4)
+            findViewById(R.id.header_button_4) // Marca el botón Jokers como activo
         )
     }
 }

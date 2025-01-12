@@ -53,40 +53,56 @@ class UserChat : AppCompatActivity() {
         )
     }
 
-    private fun setupChat()
-    {
+    private fun setupChat() {
+        // Inicializa y configura el RecyclerView para mostrar los mensajes del chat
         chatRecyclerView = findViewById(R.id.user_chat_recycle_view)
+        // Asocia el botón de confirmación de texto
         confirmButton = findViewById(R.id.confirm_text_button)
+        // Asocia el campo de texto para entrada de mensajes
         inputText = findViewById(R.id.input_text_field)
 
-
+        // Inicializa la lista de mensajes como una lista mutable vacía
         messages = mutableListOf()
+        // Crea una instancia del adaptador para el chat, utilizando la lista de mensajes
         chatAdapter = ChatUserAdapter(messages)
-        chatRecyclerView = findViewById(R.id.user_chat_recycle_view)
+        // Configura el RecyclerView con un layout manager para una lista vertical
         chatRecyclerView.layoutManager = LinearLayoutManager(this)
+        // Asigna el adaptador al RecyclerView
         chatRecyclerView.adapter = chatAdapter
     }
 
     private fun sendMessage() {
+        // Configura el botón para enviar mensajes cuando se haga clic
         confirmButton.setOnClickListener {
-            val message : String = inputText.text.toString()
+            // Obtiene el texto ingresado en el campo de entrada
+            val message: String = inputText.text.toString()
+            // Verifica que el mensaje no esté vacío o solo contenga espacios en blanco
             if (message.isNotBlank()) {
-                messages.add("You $message")
+                // Agrega el mensaje del usuario a la lista de mensajes
+                messages.add("You: $message")
+                // Notifica al adaptador que se ha añadido un nuevo elemento
                 chatAdapter.notifyItemInserted(messages.size - 1)
 
+                // Desplaza el RecyclerView al último mensaje
                 chatRecyclerView.scrollToPosition(messages.size - 1)
 
+                // Limpia el campo de texto de entrada
                 inputText.text.clear()
 
+                // Simula una respuesta automática
                 simulateResponse()
             }
         }
     }
 
     private fun simulateResponse() {
+        // Simula una respuesta después de un retraso de 1 segundo
         chatRecyclerView.postDelayed({
+            // Agrega una respuesta genérica a la lista de mensajes
             messages.add("Other: OK")
+            // Notifica al adaptador que se ha añadido un nuevo elemento
             chatAdapter.notifyItemInserted(messages.size - 1)
+            // Desplaza el RecyclerView al último mensaje
             chatRecyclerView.scrollToPosition(messages.size - 1)
         }, 1000)
     }
