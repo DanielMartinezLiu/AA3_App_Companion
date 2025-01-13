@@ -1,6 +1,6 @@
 package com.enti.app_companion
 
-import ChampionsApi.ChampionsApiInstance
+import GamesApi.GamesApiInstance
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -34,7 +34,7 @@ class Api : AppCompatActivity() {
         val apiKey = "7edb2d0194fd4d6a8b214af51e3dca7d"
 
         // Llama al servicio de la API para obtener los datos de los personajes
-        val call = ChampionsApiInstance.apiService.getCharacters(apiKey)
+        val call = GamesApiInstance.apiService.getCharacters(apiKey)
 
         // Encola la llamada a la API de forma asíncrona
         call.enqueue(object : Callback<DarkSoulsGamesResponse> {
