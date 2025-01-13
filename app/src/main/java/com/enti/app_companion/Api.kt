@@ -34,7 +34,7 @@ class Api : AppCompatActivity() {
         val apiKey = "7edb2d0194fd4d6a8b214af51e3dca7d"
 
         // Llama al servicio de la API para obtener los datos de los personajes
-        val call = GamesApiInstance.apiService.getCharacters(apiKey)
+        val call = GamesApiInstance.apiService.getGames(apiKey)
 
         // Encola la llamada a la API de forma asíncrona
         call.enqueue(object : Callback<DarkSoulsGamesResponse> {
@@ -45,8 +45,8 @@ class Api : AppCompatActivity() {
                     val games = response.body()?.results
 
                     if (games != null) {
-                        // Si la lista no está vacía, muestra en el log la cantidad de personajes
-                        Log.d("ApiResponse", "Characters received: ${games.size}")
+                        // Si la lista no está vacía, muestra en el log la cantidad de juegos
+                        Log.d("ApiResponse", "Games received: ${games.size}")
                         for (character in games) {
                             // Muestra los nombres de los personajes recibidos en el log
                             Log.d("ApiResponse", "Name: ${character.name}")
